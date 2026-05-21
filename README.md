@@ -13,7 +13,8 @@ Plataforma de e-commerce integral desarrollada con Flask (Backend) y React (Fron
 ### Frontend
 - **Framework:** React con Vite
 - 
-##  S<img width="1877" height="897" alt="2" src="https://github.com/user-attachments/assets/b29da2c2-9ee2-4f8b-b0f0-4c4f216b6f8b" />
+##  Screenshots 
+<img width="1877" height="897" alt="2" src="https://github.com/user-attachments/assets/b29da2c2-9ee2-4f8b-b0f0-4c4f216b6f8b" />
 creenshots
 <img width="1865" height="897" alt="1" src="https://github.com/user-attachments/assets/0f01299f-aace-4021-b51f-7acf2d7a06a9" <img width="1855" height="900" alt="3" src="https://github.com/user-attachments/assets/67548312-5de6-49af-9e3b-5294b03703e2" /><img width="1873" height="892" alt="7" src="https://github.com/user-attachments/assets/140089ad-0a56-4522-bc09-299b7b46450d" />
 <img width="1865" height="892" alt="6" src="https://github.com/user-attachments/assets/f014a02a-211a-4ee6-ad95-211e615fcc05" />
