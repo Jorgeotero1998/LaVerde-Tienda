@@ -1,0 +1,7 @@
+﻿@echo off
+.venv/
+node_modules/
+instance/
+__pycache__/
+.env
+

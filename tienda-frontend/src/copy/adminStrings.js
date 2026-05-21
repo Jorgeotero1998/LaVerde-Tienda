@@ -1,0 +1,18 @@
+export const adminCopy = {
+  title: "Panel de administración",
+  subtitle: "Gestioná el inventario de La Verde",
+  newProduct: "Nuevo producto",
+  editProduct: "Editar producto",
+  category: "Categoría",
+  description: "Descripción",
+  imageUrl: "URL de imagen",
+  imageUpload: "Subir imagen (Cloudinary)",
+  imagePreview: "Vista previa",
+  addProduct: "Agregar producto",
+  saveChanges: "Guardar cambios",
+  inventory: "Inventario de productos",
+  noProducts: "No hay productos cargados.",
+  uploading: "Subiendo imagen...",
+  uploadOk: "Imagen subida correctamente.",
+  uploadFail: "No se pudo subir. Podés pegar una URL manualmente.",
+};

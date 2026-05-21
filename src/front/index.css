@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+body {
+  background-color: black;
+}
+
+.pageTitle {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 600;
+  font-size: 3em;
+}
+
+.secTitle {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 500;
+}
+
+.cardPic {
+  height: 20vh;
+  width: auto;
+  object-fit: cover;
+}
+
+.detailPic {
+  height: 40vh;
+  width: auto;
+  object-fit: cover;
+}
+
+.cardGrid {
+  overflow-x: auto;
+}
+
+.deleteButton {
+  border: none;
+}
