@@ -1,4 +1,4 @@
-import os
+Ôªøimport os
 from functools import wraps
 
 import cloudinary
@@ -55,7 +55,7 @@ def send_welcome_email(email):
 def git_signup():
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
-        return jsonify({"error": "Email y contraseÒa son requeridos"}), 400
+        return jsonify({"error": "Email y contrase√±a son requeridos"}), 400
     if User.query.filter_by(email=body["email"]).first():
         return jsonify({"error": "Ya existe una cuenta con ese email"}), 409
     user = User(
@@ -68,7 +68,7 @@ def git_signup():
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
-    return jsonify({"message": "Cuenta creada con Èxito"}), 201
+    return jsonify({"message": "Cuenta creada con √©xito"}), 201
 
 
 @api.route("/forgot-password", methods=["POST"])
@@ -80,7 +80,7 @@ def forgot_password():
     if not user:
         return jsonify({"error": "No encontramos una cuenta con ese email."}), 404
     return jsonify({
-        "message": "Si el email est· registrado, recibir·s instrucciones para restablecer tu contraseÒa.",
+        "message": "Si el email est√° registrado, recibir√°s instrucciones para restablecer tu contrase√±a.",
     }), 200
 
 
@@ -88,10 +88,10 @@ def forgot_password():
 def login():
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
-        return jsonify({"error": "Email y contraseÒa son requeridos"}), 400
+        return jsonify({"error": "Email y contrase√±a son requeridos"}), 400
     user = User.query.filter_by(email=body["email"]).first()
     if not user or not user.check_password(body["password"]):
-        return jsonify({"error": "Email o contraseÒa incorrectos"}), 401
+        return jsonify({"error": "Email o contrase√±a incorrectos"}), 401
     token = create_access_token(identity=str(user.id))
     return jsonify({"token": token, "user": user.serialize()}), 200
 
@@ -135,13 +135,13 @@ def update_profile():
 def upload_image():
     if not cloudinary_ready():
         return jsonify({
-            "error": "Cloudinary no est· configurado. Agreg· las variables en .env o us· URL de imagen.",
+            "error": "Cloudinary no est√° configurado. Agreg√° las variables en .env o us√° URL de imagen.",
         }), 503
     if "file" not in request.files:
-        return jsonify({"error": "No se enviÛ ning˙n archivo"}), 400
+        return jsonify({"error": "No se envi√≥ ning√∫n archivo"}), 400
     file = request.files["file"]
     if not file.filename:
-        return jsonify({"error": "Archivo inv·lido"}), 400
+        return jsonify({"error": "Archivo inv√°lido"}), 400
     try:
         result = _upload_to_cloudinary(file)
         return jsonify({"image_url": result["secure_url"]}), 200
@@ -235,7 +235,7 @@ def upload_product_image(product_id):
     if not cloudinary_ready():
         return jsonify({"error": "Cloudinary no configurado"}), 503
     if "file" not in request.files:
-        return jsonify({"error": "No se enviÛ ning˙n archivo"}), 400
+        return jsonify({"error": "No se envi√≥ ning√∫n archivo"}), 400
     file = request.files["file"]
     try:
         result = _upload_to_cloudinary(file)
@@ -267,7 +267,7 @@ def add_favorite():
         user_id=int(user_id), product_id=body["product_id"]
     ).first()
     if existing:
-        return jsonify({"error": "Ya est· en favoritos"}), 409
+        return jsonify({"error": "Ya est√° en favoritos"}), 409
     fav = Favorite(user_id=int(user_id), product_id=body["product_id"])
     db.session.add(fav)
     db.session.commit()
@@ -369,7 +369,7 @@ def clear_cart():
     return jsonify({"message": "Carrito vaciado"}), 200
 
 
-# --- ”RDENES -------------------------------------------------------------------
+# --- √ìRDENES -------------------------------------------------------------------
 
 @api.route("/orders", methods=["GET"])
 @jwt_required()
@@ -389,7 +389,7 @@ def create_order():
     user_id = get_jwt_identity()
     cart_items = CartItem.query.filter_by(user_id=int(user_id)).all()
     if not cart_items:
-        return jsonify({"error": "El carrito est· vacÌo"}), 400
+        return jsonify({"error": "El carrito est√° vac√≠o"}), 400
     total = sum(item.product.price * item.quantity for item in cart_items)
     order = Order(user_id=int(user_id), total=total, status="confirmed")
     db.session.add(order)
@@ -405,3 +405,4 @@ def create_order():
     CartItem.query.filter_by(user_id=int(user_id)).delete()
     db.session.commit()
     return jsonify(order.serialize()), 201
+
