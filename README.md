@@ -1,4 +1,4 @@
-﻿# 🌿 LaVerde Tienda
+# 🌿 LaVerde Tienda
 
 Plataforma de e-commerce integral desarrollada con Flask (Backend) y React (Frontend).
 

@@ -1,4 +1,4 @@
-﻿import os
+import os
 from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -16,9 +16,10 @@ DEFAULT_DB = os.path.join(INSTANCE_DIR, "laverde.db").replace("\\", "/")
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-    "DATABASE_URL", f"sqlite:///{DEFAULT_DB}"
-)
+db_url = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB}")
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv(
     "JWT_SECRET_KEY", "la-verde-jwt-secret-dev"

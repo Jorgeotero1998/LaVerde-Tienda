@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# exit on error
 set -o errexit
 
-npm install
-npm run build
+pip install -r requirements.txt
 
-pipenv install
-
-pipenv run upgrade
+cd src
+flask db upgrade || true
+flask init-db
+flask insert-test-data
