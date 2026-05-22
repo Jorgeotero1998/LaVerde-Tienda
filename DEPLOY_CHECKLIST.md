@@ -1,17 +1,5 @@
 # Checklist de Deploy — La Verde
 
-## Archivos que reemplazás en tu repo
-
-| Archivo en tu repo | Reemplazar con |
-|---|---|
-| `render.yaml` (raíz) | `render.yaml` de esta carpeta |
-| `requirements.txt` (raíz) | `requirements.txt` de esta carpeta |
-| `src/app.py` | `src/app.py` de esta carpeta |
-| `src/api/admin.py` | `src/api/admin.py` de esta carpeta |
-| `src/api/routes.py` | `src/api/routes.py` de esta carpeta |
-| `tienda-frontend/.env.example` | `tienda-frontend/.env.example` de esta carpeta |
-
----
 
 ## Pasos para hacer el deploy
 
