@@ -1,5 +1,5 @@
-Set-Location $PSScriptRoot + "\.."
-Write-Host "Instalando dependencias Python..." -ForegroundColor Cyan
-python -m pip install -r requirements.txt -q
-Write-Host "Iniciando backend en http://127.0.0.1:3001 ..." -ForegroundColor Green
-python run_backend.py
+# iniciar-backend.ps1 — correr desde la raíz del proyecto
+Set-Location $PSScriptRoot
+.\.venv\Scripts\Activate.ps1
+$env:FLASK_APP = "src/app.py"
+python -m flask run --port=3001

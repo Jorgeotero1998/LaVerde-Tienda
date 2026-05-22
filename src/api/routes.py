@@ -1,5 +1,5 @@
-﻿import os
-from functools import wraps
+import os
+import requests
 
 import cloudinary
 import cloudinary.uploader
@@ -45,13 +45,16 @@ def send_welcome_email(email):
     return requests.post(
         f"https://api.mailgun.net/v3/{os.getenv('MAILGUN_DOMAIN')}/messages",
         auth=("api", os.getenv("MAILGUN_API_KEY")),
-        data={"from": f"Tienda AI <mailgun@{os.getenv('MAILGUN_DOMAIN')}>",
-              "to": [email],
-              "subject": "Bienvenido a nuestra tienda",
-              "text": "Gracias por registrarte en nuestra plataforma."})
+        data={
+            "from": f"Tienda La Verde <mailgun@{os.getenv('MAILGUN_DOMAIN')}>",
+            "to": [email],
+            "subject": "Bienvenido a La Verde",
+            "text": "Gracias por registrarte en nuestra plataforma.",
+        },
+    )
 
 
-@api.route('/signup', methods=['POST'])
+@api.route("/signup", methods=["POST"])
 def git_signup():
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
@@ -135,7 +138,7 @@ def update_profile():
 def upload_image():
     if not cloudinary_ready():
         return jsonify({
-            "error": "Cloudinary no está configurado. Agregá las variables en .env o usá URL de imagen.",
+            "error": "Cloudinary no está configurado.",
         }), 503
     if "file" not in request.files:
         return jsonify({"error": "No se envió ningún archivo"}), 400
@@ -405,4 +408,3 @@ def create_order():
     CartItem.query.filter_by(user_id=int(user_id)).delete()
     db.session.commit()
     return jsonify(order.serialize()), 201
-
