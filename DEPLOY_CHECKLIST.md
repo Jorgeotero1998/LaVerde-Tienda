@@ -3,15 +3,7 @@
 
 ## Pasos para hacer el deploy
 
-### 1. Aplicar los archivos corregidos
-Copiar cada archivo en su lugar correspondiente del repo (ver tabla arriba).
 
-### 2. Subir a GitHub
-```bash
-git add .
-git commit -m "fix: preparar para deploy en Render"
-git push
-```
 
 ### 3. Crear el Blueprint en Render
 1. Ir a https://dashboard.render.com
