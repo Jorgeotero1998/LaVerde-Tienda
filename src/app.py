@@ -28,8 +28,7 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "la-verde-jwt-secret-
 db.init_app(app)
 JWTManager(app)
 
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-CORS(app, origins=[FRONTEND_URL, "https://laverde-frontend.onrender.com"])
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 setup_admin(app)
 setup_commands(app)
