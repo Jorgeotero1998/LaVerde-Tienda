@@ -1,6 +1,5 @@
 import os
 from flask import Flask
-from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from api.models import db
@@ -21,11 +20,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "la-verde-jwt-secret-dev")
 
-MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 JWTManager(app)
 
-# CORS: en producción solo permite el frontend declarado en la variable de entorno
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 CORS(app, origins=[FRONTEND_URL])
 
