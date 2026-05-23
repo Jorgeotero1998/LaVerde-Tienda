@@ -1,7 +1,6 @@
 import os
 import sys
 
-
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import click
@@ -30,7 +29,7 @@ db.init_app(app)
 JWTManager(app)
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-CORS(app, origins=[FRONTEND_URL])
+CORS(app, origins=[FRONTEND_URL, "https://laverde-frontend.onrender.com"])
 
 setup_admin(app)
 setup_commands(app)
