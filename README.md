@@ -1,53 +1,86 @@
-﻿# 🌿 LaVerde Tienda
+# LaVerde Tienda
 
-Plataforma de e-commerce integral desarrollada con Flask (Backend) y React (Frontend).
+E-commerce Fullstack: Flask & React
 
-## 🚀 Tecnologías
+## Descripción Técnica
 
-### Backend
-- **Framework:** Flask (Python)
-- **Seguridad:** JWT (JSON Web Tokens)
-- **Almacenamiento de imágenes:** Cloudinary
-- **Notificaciones:** Mailgun API
+LaVerde Tienda es una plataforma de comercio electrónico desarrollada como proyecto fullstack para la academia 4Geeks. El backend implementa una API RESTful en Flask usando SQLAlchemy y autenticación JWT; el frontend es una SPA construida en React que comunica vía fetch/axios con el backend, integrando Cloudinary para gestión de imágenes y Bootstrap para UI responsiva.
 
-### Frontend
-- **Framework:** React con Vite
-- 
-##  Screenshots 
-<img width="1877" height="897" alt="2" src="https://github.com/user-attachments/assets/b29da2c2-9ee2-4f8b-b0f0-4c4f216b6f8b" />
-<img width="1865" height="897" alt="1" src="https://github.com/user-attachments/assets/0f01299f-aace-4021-b51f-7acf2d7a06a9" <img width="1855" height="900" alt="3" src="https://github.com/user-attachments/assets/67548312-5de6-49af-9e3b-5294b03703e2" /><img width="1873" height="892" alt="7" src="https://github.com/user-attachments/assets/140089ad-0a56-4522-bc09-299b7b46450d" />
-<img width="1865" height="892" alt="6" src="https://github.com/user-attachments/assets/f014a02a-211a-4ee6-ad95-211e615fcc05" />
-<img width="1858" height="900" alt="5" src="https://github.com/user-attachments/assets/b0f06c8d-21fb-48a9-9276-0f2beb4c76ba" />
-<img width="1857" height="896" alt="4" src="https://github.com/user-attachments/assets/7446f7ed-7587-480c-830c-73f839a38133" />
+## Tabla de Tecnologías
 
+| Tecnología       | Propósito                      |
+|------------------|-------------------------------|
+| React            | Frontend SPA                  |
+| Flask            | Backend/API RESTful           |
+| SQLAlchemy       | ORM para base de datos        |
+| JWT              | Autenticación segura          |
+| Cloudinary       | Gestión de imágenes           |
+| Bootstrap        | Estilos y componentes UI      |
 
+## Guía de Inicio Rápido
 
-## 🛠️ Estructura del Proyecto
+### Clonar el proyecto
 
+```bash
+git clone https://github.com/Jorgeotero1998/LaVerde-Tienda.git
+cd LaVerde-Tienda
+```
 
+---
 
-- /src: Lógica del servidor, rutas de API, modelos de base de datos y utilidades.
-- /tienda-frontend: Aplicación cliente basada en componentes.
-- /instance: Base de datos SQLite local (excluida del control de versiones).
+### Backend (Flask)
 
-## ⚙️ Configuración y Despliegue
+```bash
+cd src
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env           # Configura las variables de entorno
+flask db upgrade               # Opcional: migraciones si aplica
+flask run
+```
 
-### Requisitos previos
-- Python 3.10+
-- Node.js 18+
+---
 
-### Instrucciones de instalación
-1. Clonar el repositorio:
-   git clone https://github.com/Jorgeotero1998/LaVerde-Tienda.git
+### Frontend (React)
 
-2. Backend:
-   pip install -r requirements.txt
-   python -m flask run --port=3001
+```bash
+cd tienda-frontend
+npm install
+cp .env.example .env           # Configura las variables de entorno
+npm start
+```
 
-3. Frontend:
-   cd tienda-frontend
-   npm install
-   npm run dev
+---
 
-## 📝 Contribuciones
-Este proyecto es el resultado del esfuerzo conjunto para crear una solución escalable de venta minorista. Se agradece cualquier sugerencia a través de Pull Requests.
+## Variables de Entorno
+
+Asegúrate de configurar correctamente ambas capas:
+
+### Backend (`src/.env.example`)
+```env
+FLASK_APP=main.py
+FLASK_ENV=development
+DATABASE_URL=sqlite:///dev.db           # Cambia por tu motor de BD
+JWT_SECRET_KEY=your_jwt_secret
+CLOUDINARY_URL=your_cloudinary_url
+```
+
+### Frontend (`tienda-frontend/.env.example`)
+```env
+REACT_APP_API_URL=http://127.0.0.1:5000
+```
+
+## Despliegue en Producción
+
+[URL_AQUÍ]
+
+## Arquitectura
+
+- **Backend:** API RESTful en Flask, modelos relacionales con SQLAlchemy, autenticación con JWT, almacenamiento de imágenes en Cloudinary.
+- **Frontend:** SPA en React, consume servicios del backend vía fetch/axios.
+- **Separación completa de frontend y backend** en directorios independientes para facilitar el despliegue y mantenimiento.
+
+## Contacto
+
+Consulta, issues o soporte vía [Issues de GitHub](https://github.com/Jorgeotero1998/LaVerde-Tienda/issues).
