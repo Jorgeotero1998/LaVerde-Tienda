@@ -14,6 +14,10 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
+      if [ ! -d "migrations" ]; then
+        flask db init
+        flask db migrate -m "Initial remote migration"
+      fi
       flask db upgrade
     startCommand: gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
