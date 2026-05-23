@@ -3,10 +3,10 @@ import click
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-from api.models import db
-from api.routes import api
-from api.admin import setup_admin
-from api.commands import setup_commands
+from src.api.models import db
+from src.api.routes import api
+from src.api.admin import setup_admin
+from src.api.commands import setup_commands
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INSTANCE_DIR = os.path.join(ROOT_DIR, "instance")
