@@ -1,7 +1,36 @@
-﻿@echo off
-.venv/
-node_modules/
-instance/
+# Python
 __pycache__/
-.env
+*.py[cod]
+*.so
+src/.venv/
+src/instance/
+src/*.db
 
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Env
+.env
+.env.*
+src/.env
+tienda-frontend/.env
+*.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Builds
+/build/
+dist/
+*.egg-info/
+coverage/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
