@@ -1,4 +1,5 @@
 import os
+import click
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -29,6 +30,11 @@ CORS(app, origins=[FRONTEND_URL])
 setup_admin(app)
 setup_commands(app)
 app.register_blueprint(api, url_prefix="/api")
+
+@app.cli.command("db")
+@click.argument("args", nargs=-1)
+def fake_db(args):
+    db.create_all()
 
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", 3001))
