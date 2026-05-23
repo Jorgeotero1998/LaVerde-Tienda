@@ -1,13 +1,13 @@
 databases:
   - name: laverde-db
-    region: ohio
+    region: oregon
     plan: free
     ipAllowList: []
 
 services:
   - type: web
     name: laverde-backend
-    region: ohio
+    region: oregon
     plan: free
     env: python
     rootDir: .
