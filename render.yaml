@@ -15,8 +15,7 @@ services:
       pip install --upgrade pip
       pip install -r requirements.txt
       PYTHONPATH=src python -c "from src.app import app; from api.models import db; ctx=app.app_context(); ctx.push(); db.create_all()"
-      PYTHONPATH=src FLASK_APP=src/app.py flask insert-test-data
-    startCommand: PYTHONPATH=src gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    startCommand: PYTHONPATH=src FLASK_APP=src/app.py flask insert-test-data && PYTHONPATH=src gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: DATABASE_URL
         fromDatabase:
