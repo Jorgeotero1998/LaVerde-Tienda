@@ -40,9 +40,10 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
 
-  - type: static
+  - type: web
     name: laverde-frontend
     plan: free
+    env: static
     rootDir: tienda-frontend
     buildCommand: |
       npm ci
