@@ -36,6 +36,17 @@ def _upload_to_cloudinary(file):
 
 # --- HEALTH --------------------------------------------------------------------
 
+@api.route("/", methods=["GET"])
+def index():
+    return jsonify({
+        "proyecto": "La Verde — Tienda de frutas y verduras",
+        "version": "1.0.0",
+        "equipo": "Jorge · Emanuel · Braian",
+        "academia": "4Geeks Academy 2026",
+        "endpoints": "/api/products · /api/login · /api/signup · /api/cart · /api/orders · /api/favorites"
+    }), 200
+
+
 @api.route("/hello", methods=["GET"])
 def hello():
     return jsonify({"message": "Backend conectado correctamente"}), 200
@@ -372,7 +383,7 @@ def clear_cart():
     return jsonify({"message": "Carrito vaciado"}), 200
 
 
-# --- ÓRDENES -------------------------------------------------------------------
+# --- ORDENES -------------------------------------------------------------------
 
 @api.route("/orders", methods=["GET"])
 @jwt_required()
