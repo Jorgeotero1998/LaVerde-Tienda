@@ -190,17 +190,25 @@ const getState = ({ getStore, getActions, setStore }) => ({
       }
     },
 
-    createProduct: (data) => {
-      const store = getStore();
-      const newProduct = {
-        ...data,
-        id: Date.now(),
-        price: Number(data.price) || 0,
-        stock: Number(data.stock) || 0,
-      };
-      const updated = [...store.products, newProduct];
-      localStorage.setItem("laverde_products", JSON.stringify(updated));
-      setStore({ products: updated });
+    createProduct: async (data) => {
+      try {
+        await apiFetch("/products", {
+          method: "POST",
+          body: {
+            name: data.name,
+            description: data.description || "",
+            price: Number(data.price) || 0,
+            stock: Number(data.stock) || 0,
+            unit: data.unit || "pza",
+            category: data.category || "",
+            image_url: data.image_url || "",
+          },
+        });
+        await getActions().getProducts();
+        setStore({ message: "Producto creado con éxito." });
+      } catch (err) {
+        setStore({ error: err.data?.error || "No se pudo crear el producto." });
+      }
     },
 
     updateProduct: (id, data) => {
@@ -219,11 +227,14 @@ const getState = ({ getStore, getActions, setStore }) => ({
       setStore({ products: updated });
     },
 
-    deleteProduct: (id) => {
-      const store = getStore();
-      const updated = store.products.filter((p) => Number(p.id) !== Number(id));
-      localStorage.setItem("laverde_products", JSON.stringify(updated));
-      setStore({ products: updated });
+    deleteProduct: async (id) => {
+      try {
+        await apiFetch(`/products/${id}`, { method: "DELETE" });
+        await getActions().getProducts();
+        setStore({ message: "Producto eliminado." });
+      } catch (err) {
+        setStore({ error: err.data?.error || "No se pudo eliminar el producto." });
+      }
     },
 
     addToCart: async (product, quantity = 1) => {
