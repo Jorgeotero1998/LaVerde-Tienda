@@ -1,0 +1,10 @@
+﻿name: HeartShark Activation
+on:
+  push:
+    branches: [ main, master ]
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Say Hello
+      run: echo "Logro HeartShark activado con exito"
