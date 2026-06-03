@@ -143,6 +143,12 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 | POST | `/api/orders` | Confirmar pedido (requiere JWT) |
 | GET | `/api/favorites` | Favoritos (requiere JWT) |
 
+## Tests
+\```bash
+$env:PYTHONPATH = "src"
+pytest test_api.py -v   # 44 tests
+\```
+
 ---
 
 ## 📝 Autores
