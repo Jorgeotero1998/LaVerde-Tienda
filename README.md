@@ -137,6 +137,19 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 ---
 
 ## 🌐 API — Endpoints principales
+---
+
+## 📚 Documentación Completa
+
+Para más detalles, consulta:
+
+- **[Arquitectura & Decisiones de Diseño](docs/PROYECTO_LA_VERDE.md)** — Stack técnico, requisitos, flujo de prueba
+- **[Checklist de Deploy](docs/DEPLOY_CHECKLIST.md)** — Pasos para subir a producción en Render
+- **[Entrega Profesional](docs/ENTREGA_FINAL.md)** — Checklist de calidad
+- **[User Stories](docs/USER_STORIES.md)** — Funcionalidades y casos de uso
+- **[API Audit](docs/RUTA_API_AUDIT.md)** — Endpoints documentados
+
+---
 
 | Método | Ruta | Descripción |
 |---|---|---|
