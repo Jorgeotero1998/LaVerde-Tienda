@@ -1,4 +1,8 @@
 # 🌿 LaVerde Tienda
+[![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org)
+[![React 19](https://img.shields.io/badge/React-19-61dafb)](https://react.dev)
+[![Status](https://img.shields.io/badge/Status-Production-brightgreen)](#)
 
 Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.
 
