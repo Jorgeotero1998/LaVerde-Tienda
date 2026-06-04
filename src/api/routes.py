@@ -116,7 +116,7 @@ def login():
 @jwt_required()
 def get_profile():
     user_id = get_jwt_identity()
-    user = User.query.get(int(user_id))
+    user = db.session.get(User, int(user_id))
     if not user:
         return jsonify({"error": "Usuario no encontrado"}), 404
     return jsonify(user.serialize()), 200
@@ -126,7 +126,7 @@ def get_profile():
 @jwt_required()
 def update_profile():
     user_id = get_jwt_identity()
-    user = User.query.get(int(user_id))
+    user = db.session.get(User, int(user_id))
     if not user:
         return jsonify({"error": "Usuario no encontrado"}), 404
     body = request.get_json()
@@ -177,7 +177,7 @@ def get_products():
 
 @api.route("/products/<int:product_id>", methods=["GET"])
 def get_product(product_id):
-    product = Product.query.get(product_id)
+    product = db.session.get(Product, product_id)
     if not product or not product.is_active:
         return jsonify({"error": "Producto no encontrado"}), 404
     return jsonify(product.serialize()), 200
@@ -207,7 +207,7 @@ def create_product():
 @api.route("/products/<int:product_id>", methods=["PUT"])
 @admin_required
 def update_product(product_id):
-    product = Product.query.get(product_id)
+    product = db.session.get(Product, product_id)
     if not product:
         return jsonify({"error": "Producto no encontrado"}), 404
     body = request.get_json()
@@ -232,7 +232,7 @@ def update_product(product_id):
 @api.route("/products/<int:product_id>", methods=["DELETE"])
 @admin_required
 def delete_product(product_id):
-    product = Product.query.get(product_id)
+    product = db.session.get(Product, product_id)
     if not product:
         return jsonify({"error": "Producto no encontrado"}), 404
     product.is_active = False
@@ -243,7 +243,7 @@ def delete_product(product_id):
 @api.route("/products/<int:product_id>/image", methods=["POST"])
 @admin_required
 def upload_product_image(product_id):
-    product = Product.query.get(product_id)
+    product = db.session.get(Product, product_id)
     if not product:
         return jsonify({"error": "Producto no encontrado"}), 404
     if not cloudinary_ready():
@@ -319,7 +319,7 @@ def add_to_cart():
     body = request.get_json()
     if not body or not body.get("product_id"):
         return jsonify({"error": "product_id es requerido"}), 400
-    product = Product.query.get(body["product_id"])
+    product = db.session.get(Product, body["product_id"])
     if not product:
         return jsonify({"error": "Producto no encontrado"}), 404
     quantity = int(body.get("quantity", 1))
