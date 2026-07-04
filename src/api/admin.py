@@ -1,5 +1,5 @@
 import os
-from flask import redirect, url_for, request, flash
+from flask import make_response, redirect, render_template_string, request, url_for
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from api.models import db, User, Product, Favorite, CartItem, Order, OrderItem
@@ -52,9 +52,6 @@ class OrderView(SecureModelView):
 def setup_admin(app):
     app.secret_key = os.environ.get("FLASK_APP_KEY", "sample key")
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
-
-    from flask import request, make_response, render_template_string
-    from api.models import User
 
     LOGIN_HTML = """
     <!DOCTYPE html>

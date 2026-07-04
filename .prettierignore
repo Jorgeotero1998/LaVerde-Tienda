@@ -1,0 +1,17 @@
+node_modules
+tienda-frontend/node_modules
+
+tienda-frontend/build
+build
+dist
+
+.venv
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+instance
+logs
+coverage
+htmlcov
+

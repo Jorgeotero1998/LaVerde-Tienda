@@ -36,15 +36,18 @@ def _upload_to_cloudinary(file):
 
 # --- HEALTH --------------------------------------------------------------------
 
+
 @api.route("/", methods=["GET"])
 def index():
-    return jsonify({
-        "proyecto": "La Verde — Tienda de frutas y verduras",
-        "version": "1.0.0",
-        "equipo": "Jorge · Emanuel · Braian",
-        "academia": "4Geeks Academy 2026",
-        "endpoints": "/api/products · /api/login · /api/signup · /api/cart · /api/orders · /api/favorites"
-    }), 200
+    return jsonify(
+        {
+            "proyecto": "La Verde — Tienda de frutas y verduras",
+            "version": "1.0.0",
+            "equipo": "Jorge · Emanuel · Braian",
+            "academia": "4Geeks Academy 2026",
+            "endpoints": "/api/products · /api/login · /api/signup · /api/cart · /api/orders · /api/favorites",
+        }
+    ), 200
 
 
 @api.route("/hello", methods=["GET"])
@@ -93,9 +96,11 @@ def forgot_password():
     user = User.query.filter_by(email=body["email"]).first()
     if not user:
         return jsonify({"error": "No encontramos una cuenta con ese email."}), 404
-    return jsonify({
-        "message": "Si el email está registrado, recibirás instrucciones para restablecer tu contraseña.",
-    }), 200
+    return jsonify(
+        {
+            "message": "Si el email está registrado, recibirás instrucciones para restablecer tu contraseña.",
+        }
+    ), 200
 
 
 @api.route("/login", methods=["POST"])
@@ -111,6 +116,7 @@ def login():
 
 
 # --- USUARIO -------------------------------------------------------------------
+
 
 @api.route("/me", methods=["GET"])
 @jwt_required()
@@ -144,13 +150,16 @@ def update_profile():
 
 # --- CLOUDINARY (admin) --------------------------------------------------------
 
+
 @api.route("/upload/image", methods=["POST"])
 @admin_required
 def upload_image():
     if not cloudinary_ready():
-        return jsonify({
-            "error": "Cloudinary no está configurado.",
-        }), 503
+        return jsonify(
+            {
+                "error": "Cloudinary no está configurado.",
+            }
+        ), 503
     if "file" not in request.files:
         return jsonify({"error": "No se envió ningún archivo"}), 400
     file = request.files["file"]
@@ -164,6 +173,7 @@ def upload_image():
 
 
 # --- PRODUCTOS -----------------------------------------------------------------
+
 
 @api.route("/products", methods=["GET"])
 def get_products():
@@ -262,6 +272,7 @@ def upload_product_image(product_id):
 
 # --- FAVORITOS -----------------------------------------------------------------
 
+
 @api.route("/favorites", methods=["GET"])
 @jwt_required()
 def get_favorites():
@@ -277,9 +288,7 @@ def add_favorite():
     body = request.get_json()
     if not body or not body.get("product_id"):
         return jsonify({"error": "product_id es requerido"}), 400
-    existing = Favorite.query.filter_by(
-        user_id=int(user_id), product_id=body["product_id"]
-    ).first()
+    existing = Favorite.query.filter_by(user_id=int(user_id), product_id=body["product_id"]).first()
     if existing:
         return jsonify({"error": "Ya está en favoritos"}), 409
     fav = Favorite(user_id=int(user_id), product_id=body["product_id"])
@@ -292,9 +301,7 @@ def add_favorite():
 @jwt_required()
 def delete_favorite(product_id):
     user_id = get_jwt_identity()
-    fav = Favorite.query.filter_by(
-        user_id=int(user_id), product_id=product_id
-    ).first()
+    fav = Favorite.query.filter_by(user_id=int(user_id), product_id=product_id).first()
     if not fav:
         return jsonify({"error": "Favorito no encontrado"}), 404
     db.session.delete(fav)
@@ -303,6 +310,7 @@ def delete_favorite(product_id):
 
 
 # --- CARRITO -------------------------------------------------------------------
+
 
 @api.route("/cart", methods=["GET"])
 @jwt_required()
@@ -323,9 +331,7 @@ def add_to_cart():
     if not product:
         return jsonify({"error": "Producto no encontrado"}), 404
     quantity = int(body.get("quantity", 1))
-    existing = CartItem.query.filter_by(
-        user_id=int(user_id), product_id=body["product_id"]
-    ).first()
+    existing = CartItem.query.filter_by(user_id=int(user_id), product_id=body["product_id"]).first()
     if existing:
         existing.quantity += quantity
         db.session.commit()
@@ -345,9 +351,7 @@ def add_to_cart():
 def update_cart_item(product_id):
     user_id = get_jwt_identity()
     body = request.get_json()
-    item = CartItem.query.filter_by(
-        user_id=int(user_id), product_id=product_id
-    ).first()
+    item = CartItem.query.filter_by(user_id=int(user_id), product_id=product_id).first()
     if not item:
         return jsonify({"error": "Item no encontrado en el carrito"}), 404
     quantity = int(body.get("quantity", 1))
@@ -364,9 +368,7 @@ def update_cart_item(product_id):
 @jwt_required()
 def remove_from_cart(product_id):
     user_id = get_jwt_identity()
-    item = CartItem.query.filter_by(
-        user_id=int(user_id), product_id=product_id
-    ).first()
+    item = CartItem.query.filter_by(user_id=int(user_id), product_id=product_id).first()
     if not item:
         return jsonify({"error": "Item no encontrado en el carrito"}), 404
     db.session.delete(item)
@@ -385,15 +387,12 @@ def clear_cart():
 
 # --- ORDENES -------------------------------------------------------------------
 
+
 @api.route("/orders", methods=["GET"])
 @jwt_required()
 def get_orders():
     user_id = get_jwt_identity()
-    orders = (
-        Order.query.filter_by(user_id=int(user_id))
-        .order_by(Order.created_at.desc())
-        .all()
-    )
+    orders = Order.query.filter_by(user_id=int(user_id)).order_by(Order.created_at.desc()).all()
     return jsonify([o.serialize() for o in orders]), 200
 
 

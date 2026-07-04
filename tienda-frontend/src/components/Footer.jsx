@@ -14,11 +14,14 @@ const Footer = () => (
       <div className="row g-4">
         <div className="col-md-4">
           <div className="site-footer__brand">
-            <span className="site-footer__logo-icon" aria-hidden="true">🥦</span>
+            <span className="site-footer__logo-icon" aria-hidden="true">
+              🥦
+            </span>
             La Verde
           </div>
           <p className="site-footer__tagline">
-            Del campo a tu puerta. Frutas y verduras frescas, orgánicas y de temporada con entrega en el día.
+            Del campo a tu puerta. Frutas y verduras frescas, orgánicas y de temporada con entrega
+            en el día.
           </p>
         </div>
         <div className="col-md-4">
@@ -26,11 +29,15 @@ const Footer = () => (
           <ul className="list-unstyled d-flex flex-column gap-2 m-0">
             {FOOTER_LINKS.map(({ to, label }) => (
               <li key={to}>
-                <Link to={to} className="site-footer__link">{label}</Link>
+                <Link to={to} className="site-footer__link">
+                  {label}
+                </Link>
               </li>
             ))}
             <li>
-              <Link to="/signup" className="site-footer__link">Crear cuenta</Link>
+              <Link to="/signup" className="site-footer__link">
+                Crear cuenta
+              </Link>
             </li>
           </ul>
         </div>

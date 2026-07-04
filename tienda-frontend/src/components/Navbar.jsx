@@ -1,5 +1,6 @@
 ﻿import React, { useContext, useState, useEffect } from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";import { Context } from "../layout";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Context } from "../layout";
 import CartDrawer from "./CartDrawer";
 
 const Navbar = () => {
@@ -9,7 +10,10 @@ const Navbar = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const cartCount = store.cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
   const favCount = store.favorites.length;
-  const handleLogout = () => { actions.logout(); navigate("/"); };
+  const handleLogout = () => {
+    actions.logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const openCart = () => setCartOpen(true);
@@ -30,17 +34,27 @@ const Navbar = () => {
     const params = q ? "?q=" + encodeURIComponent(q) : "";
     if (location.pathname !== "/") navigate("/" + params);
     else navigate({ pathname: "/", search: params });
-    setTimeout(() => document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" }), 150);
+    setTimeout(
+      () => document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" }),
+      150,
+    );
   };
 
   const navClass = ({ isActive }) => "nav-link nav-link-custom" + (isActive ? " is-active" : "");
 
   return (
     <>
-      <nav className={"navbar navbar-expand-lg navbar-verde sticky-top " + (cartOpen ? "navbar-verde--dimmed" : "")}>
+      <nav
+        className={
+          "navbar navbar-expand-lg navbar-verde sticky-top " +
+          (cartOpen ? "navbar-verde--dimmed" : "")
+        }
+      >
         <div className="container-fluid px-3 px-lg-4">
           <Link className="navbar-verde__brand-wrap" to="/">
-            <span className="navbar-verde__logo-icon" aria-hidden="true">🥦</span>
+            <span className="navbar-verde__logo-icon" aria-hidden="true">
+              🥦
+            </span>
             <span className="navbar-brand">La Verde</span>
           </Link>
 
@@ -72,7 +86,9 @@ const Navbar = () => {
 
           <div className="collapse navbar-collapse" id="navMenu">
             <div className="navbar-verde__nav-links ms-lg-auto me-lg-3">
-              <NavLink to="/" className={navClass} end>Inicio</NavLink>
+              <NavLink to="/" className={navClass} end>
+                Inicio
+              </NavLink>
               <a
                 href="/#productos"
                 className="nav-link nav-link-custom"
@@ -86,11 +102,19 @@ const Navbar = () => {
               </a>
               {store.token && (
                 <>
-                  <NavLink to="/favorites" className={navClass}>Favoritos</NavLink>
-                  <NavLink to="/orders" className={navClass}>Mis pedidos</NavLink>
-                  <NavLink to="/profile" className={navClass}>Mi cuenta</NavLink>
+                  <NavLink to="/favorites" className={navClass}>
+                    Favoritos
+                  </NavLink>
+                  <NavLink to="/orders" className={navClass}>
+                    Mis pedidos
+                  </NavLink>
+                  <NavLink to="/profile" className={navClass}>
+                    Mi cuenta
+                  </NavLink>
                   {store.user?.isAdmin && (
-                    <NavLink to="/admin" className={navClass}>Admin</NavLink>
+                    <NavLink to="/admin" className={navClass}>
+                      Admin
+                    </NavLink>
                   )}
                 </>
               )}
@@ -122,7 +146,10 @@ const Navbar = () => {
               >
                 <i className="fas fa-shopping-cart"></i>
                 {cartCount > 0 && (
-                  <span key={cartCount} className="position-absolute top-0 start-100 translate-middle badge rounded-pill navbar-verde__cart-badge cart-badge-pop">
+                  <span
+                    key={cartCount}
+                    className="position-absolute top-0 start-100 translate-middle badge rounded-pill navbar-verde__cart-badge cart-badge-pop"
+                  >
                     {cartCount}
                   </span>
                 )}
@@ -131,16 +158,25 @@ const Navbar = () => {
               {store.token ? (
                 <>
                   <span className="navbar-verde__greeting">
-                    Hola, <span className="navbar-verde__greeting-name">{store.user?.firstName}</span>
+                    Hola,{" "}
+                    <span className="navbar-verde__greeting-name">{store.user?.firstName}</span>
                   </span>
-                  <button type="button" className="btn btn-outline-accent btn-sm" onClick={handleLogout}>
+                  <button
+                    type="button"
+                    className="btn btn-outline-accent btn-sm"
+                    onClick={handleLogout}
+                  >
                     Salir
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="btn btn-outline-accent btn-sm">Ingresar</Link>
-                  <Link to="/signup" className="btn btn-accent btn-sm">Registrarse</Link>
+                  <Link to="/login" className="btn btn-outline-accent btn-sm">
+                    Ingresar
+                  </Link>
+                  <Link to="/signup" className="btn btn-accent btn-sm">
+                    Registrarse
+                  </Link>
                 </>
               )}
             </div>

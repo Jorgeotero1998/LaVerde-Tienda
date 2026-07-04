@@ -10,10 +10,10 @@ const Favorites = () => {
 
   useEffect(() => {
     actions.getProducts();
-  }, []);
+  }, [actions]);
 
   const favProducts = (store.products || []).filter((p) =>
-    isFavoriteProduct(store.favorites, p.id)
+    isFavoriteProduct(store.favorites, p.id),
   );
 
   return (
@@ -21,15 +21,23 @@ const Favorites = () => {
       <div className="container">
         <PageHeader
           title="❤️ Mis favoritos"
-          subtitle={favProducts.length + " " + (favProducts.length === 1 ? "producto guardado" : "productos guardados")}
+          subtitle={
+            favProducts.length +
+            " " +
+            (favProducts.length === 1 ? "producto guardado" : "productos guardados")
+          }
         />
 
         {favProducts.length === 0 ? (
           <div className="empty-state ui-panel">
             <span className="success-screen__icon">🤍</span>
             <h3 className="page-header__title">Aún no guardaste favoritos</h3>
-            <p className="text-muted-theme">Presioná el ❤️ en cualquier producto para guardarlo acá</p>
-            <Link to="/" className="btn btn-accent mt-2">Explorar productos</Link>
+            <p className="text-muted-theme">
+              Presioná el ❤️ en cualquier producto para guardarlo acá
+            </p>
+            <Link to="/" className="btn btn-accent mt-2">
+              Explorar productos
+            </Link>
           </div>
         ) : (
           <div className="product-grid">

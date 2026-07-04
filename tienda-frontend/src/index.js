@@ -7,4 +7,8 @@ import App from "./App";
 import injectContext from "./injectContext";
 const AppWithContext = injectContext(App);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<React.StrictMode><AppWithContext /></React.StrictMode>);
+root.render(
+  <React.StrictMode>
+    <AppWithContext />
+  </React.StrictMode>,
+);

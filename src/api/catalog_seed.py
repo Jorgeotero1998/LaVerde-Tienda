@@ -9,6 +9,7 @@ def _key(value):
     text = normalize("NFKD", value or "")
     return "".join(ch for ch in text if not combining(ch)).casefold().strip()
 
+
 LA_VERDE_CATALOG = [
     {
         "name": "Manzana Roja",

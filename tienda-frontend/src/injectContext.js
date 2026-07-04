@@ -7,6 +7,7 @@ const injectContext = (PassedComponent) => {
   const StoreWrapper = (props) => {
     const [state, setState] = useState(null);
     const stateRef = useRef(null);
+    const didBootRef = useRef(false);
 
     useEffect(() => {
       const initialState = getState({
@@ -24,13 +25,14 @@ const injectContext = (PassedComponent) => {
     }, []);
 
     useEffect(() => {
-      if (!state) return;
+      if (!state || didBootRef.current) return;
+      didBootRef.current = true;
       setUnauthorizedHandler(() => {
         if (stateRef.current?.actions) stateRef.current.actions.logout();
       });
       state.actions.getProducts();
       if (state.store.token) state.actions.syncSession();
-    }, [!!state]);
+    }, [state]);
 
     if (!state) return null;
 

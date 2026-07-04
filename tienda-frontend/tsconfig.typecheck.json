@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "checkJs": true,
+        "types": ["node"]
+    },
+    "include": [
+        "src/api/**/*.js",
+        "src/utils/**/*.js",
+        "src/flux.js",
+        "src/copy/**/*.js",
+        "src/data/**/*.js"
+    ],
+    "exclude": ["src/**/*.test.js", "src/**/*.spec.js"]
+}

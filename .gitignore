@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 *.so
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 src/.venv/
 src/instance/
 src/*.db
@@ -24,6 +30,7 @@ Thumbs.db
 
 # Builds
 /build/
+tienda-frontend/build/
 dist/
 *.egg-info/
 coverage/

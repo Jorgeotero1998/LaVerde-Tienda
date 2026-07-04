@@ -44,7 +44,9 @@ const ProductCard = ({ product, animationDelay = 0 }) => {
           src={getProductImage(product)}
           alt={product.name}
           className="product-img"
-          onError={(e) => { e.currentTarget.src = fallbackProductImage(product); }}
+          onError={(e) => {
+            e.currentTarget.src = fallbackProductImage(product);
+          }}
         />
         <span className="product-card__price-badge">${product.price}</span>
         {store.token && (
@@ -66,7 +68,9 @@ const ProductCard = ({ product, animationDelay = 0 }) => {
         <p className="product-card__desc">{product.description}</p>
         <button
           type="button"
-          className={"btn btn-accent product-card__cta " + (justAdded ? "product-card__cta--added" : "")}
+          className={
+            "btn btn-accent product-card__cta " + (justAdded ? "product-card__cta--added" : "")
+          }
           onClick={handleCart}
           disabled={product.stock === 0}
         >

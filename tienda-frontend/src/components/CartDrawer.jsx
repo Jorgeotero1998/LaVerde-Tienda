@@ -13,7 +13,9 @@ const CartDrawer = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape" && isOpen) onClose(); };
+    const onKey = (e) => {
+      if (e.key === "Escape" && isOpen) onClose();
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
@@ -48,7 +50,9 @@ const CartDrawer = ({ isOpen, onClose }) => {
         <div className="cart-drawer__body">
           {store.cart.length === 0 ? (
             <div className="cart-drawer__empty">
-              <span className="cart-drawer__empty-icon" aria-hidden="true">🧺</span>
+              <span className="cart-drawer__empty-icon" aria-hidden="true">
+                🧺
+              </span>
               <p>Tu canasta está vacía</p>
               <button type="button" className="btn btn-outline-accent" onClick={onClose}>
                 Seguir comprando
@@ -66,16 +70,34 @@ const CartDrawer = ({ isOpen, onClose }) => {
                     src={getProductImage(item)}
                     alt={item.name}
                     className="cart-drawer__item-img"
-                    onError={(e) => { e.currentTarget.src = fallbackProductImage(item); }}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackProductImage(item);
+                    }}
                   />
                   <div className="cart-drawer__item-info">
                     <h3 className="cart-drawer__item-name">{item.name}</h3>
                     <p className="cart-drawer__item-meta">{item.category || "Producto"}</p>
-                    <p className="cart-drawer__item-price">${(item.price * (item.quantity || 1)).toFixed(0)}</p>
+                    <p className="cart-drawer__item-price">
+                      ${(item.price * (item.quantity || 1)).toFixed(0)}
+                    </p>
                     <div className="qty-control">
-                      <button type="button" className="qty-control__btn" onClick={() => actions.updateCartQuantity(item.id, item.quantity - 1)} aria-label="Reducir cantidad">−</button>
+                      <button
+                        type="button"
+                        className="qty-control__btn"
+                        onClick={() => actions.updateCartQuantity(item.id, item.quantity - 1)}
+                        aria-label="Reducir cantidad"
+                      >
+                        −
+                      </button>
                       <span className="qty-control__value">{item.quantity}</span>
-                      <button type="button" className="qty-control__btn" onClick={() => actions.updateCartQuantity(item.id, item.quantity + 1)} aria-label="Aumentar cantidad">+</button>
+                      <button
+                        type="button"
+                        className="qty-control__btn"
+                        onClick={() => actions.updateCartQuantity(item.id, item.quantity + 1)}
+                        aria-label="Aumentar cantidad"
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                   <button
@@ -98,7 +120,11 @@ const CartDrawer = ({ isOpen, onClose }) => {
               <span>Subtotal</span>
               <strong>${cartTotal.toFixed(0)}</strong>
             </div>
-            <Link to="/cart" className="btn btn-accent btn-accent--block cart-drawer__checkout" onClick={onClose}>
+            <Link
+              to="/cart"
+              className="btn btn-accent btn-accent--block cart-drawer__checkout"
+              onClick={onClose}
+            >
               Proceder al pago <i className="fas fa-arrow-right"></i>
             </Link>
             <p className="cart-drawer__note">Impuestos y envío se calculan en el checkout</p>

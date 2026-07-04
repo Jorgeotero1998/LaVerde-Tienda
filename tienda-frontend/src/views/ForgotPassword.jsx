@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     actions.clearMessage();
-  }, []);
+  }, [actions]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

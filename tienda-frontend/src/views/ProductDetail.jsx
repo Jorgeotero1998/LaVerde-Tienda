@@ -13,7 +13,7 @@ const ProductDetail = () => {
   useEffect(() => {
     actions.getProduct(id);
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, actions]);
 
   const product = store.product;
 
@@ -34,7 +34,9 @@ const ProductDetail = () => {
     );
   }
 
-  const related = store.products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
+  const related = store.products
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div className="page">
@@ -53,7 +55,9 @@ const ProductDetail = () => {
               <img
                 src={getProductImage(product)}
                 alt={product.name}
-                onError={(e) => { e.currentTarget.src = fallbackProductImage(product); }}
+                onError={(e) => {
+                  e.currentTarget.src = fallbackProductImage(product);
+                }}
               />
             </div>
           </div>
@@ -71,7 +75,9 @@ const ProductDetail = () => {
 
             <div className="mb-4">
               {product.stock > 0 ? (
-                <span className="badge-stock-ok">✅ Stock: {product.stock} {product.unit}</span>
+                <span className="badge-stock-ok">
+                  ✅ Stock: {product.stock} {product.unit}
+                </span>
               ) : (
                 <span className="badge-stock-no">❌ Sin stock</span>
               )}
@@ -80,27 +86,49 @@ const ProductDetail = () => {
             {product.stock > 0 && (
               <div className="d-flex align-items-center gap-3 flex-wrap">
                 <div className="qty-control">
-                  <button type="button" className="qty-control__btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button>
+                  <button
+                    type="button"
+                    className="qty-control__btn"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  >
+                    −
+                  </button>
                   <span className="qty-control__value">{quantity}</span>
-                  <button type="button" className="qty-control__btn" onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}>+</button>
+                  <button
+                    type="button"
+                    className="qty-control__btn"
+                    onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  >
+                    +
+                  </button>
                 </div>
 
                 <button
                   type="button"
-                  className={"btn btn-accent flex-grow-1 " + (added ? "product-card__cta--added" : "")}
+                  className={
+                    "btn btn-accent flex-grow-1 " + (added ? "product-card__cta--added" : "")
+                  }
                   onClick={handleAdd}
                 >
                   {added ? (
-                    <><i className="fas fa-check me-2"></i> ¡Agregado!</>
+                    <>
+                      <i className="fas fa-check me-2"></i> ¡Agregado!
+                    </>
                   ) : (
-                    <><i className="fas fa-shopping-cart me-2"></i> Agregar al carrito</>
+                    <>
+                      <i className="fas fa-shopping-cart me-2"></i> Agregar al carrito
+                    </>
                   )}
                 </button>
               </div>
             )}
 
             <div className="product-detail__perks">
-              {[{ icon: "🚚", text: "Envío el mismo día" }, { icon: "🌿", text: "Producto fresco" }, { icon: "✅", text: "Calidad garantizada" }].map(({ icon, text }) => (
+              {[
+                { icon: "🚚", text: "Envío el mismo día" },
+                { icon: "🌿", text: "Producto fresco" },
+                { icon: "✅", text: "Calidad garantizada" },
+              ].map(({ icon, text }) => (
                 <div key={text} className="product-detail__perk">
                   <span>{icon}</span>
                   <span>{text}</span>

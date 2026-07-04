@@ -8,7 +8,7 @@ const Orders = () => {
 
   useEffect(() => {
     actions.getOrders();
-  }, []);
+  }, [actions]);
 
   const orders = store.orders || [];
 

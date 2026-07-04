@@ -47,12 +47,15 @@ def client(app):
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def register_and_login(client, email="test@test.com", password="Test1234"):
     """Registra un usuario y devuelve su JWT token."""
-    client.post("/api/signup", json={
-        "firstName": "Test",
-        "lastName": "User",
-        "email": email,
-        "password": password,
-    })
+    client.post(
+        "/api/signup",
+        json={
+            "firstName": "Test",
+            "lastName": "User",
+            "email": email,
+            "password": password,
+        },
+    )
     res = client.post("/api/login", json={"email": email, "password": password})
     return res.get_json()["token"]
 
@@ -74,6 +77,7 @@ def create_product(app, name="Manzana", price=100.0, stock=50):
 # 1. HEALTH
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestHealth:
     def test_index_returns_200(self, client):
         res = client.get("/api/")
@@ -91,14 +95,18 @@ class TestHealth:
 # 2. AUTH — SIGNUP
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestSignup:
     def test_signup_exitoso(self, client):
-        res = client.post("/api/signup", json={
-            "firstName": "Jorge",
-            "lastName": "Otero",
-            "email": "jorge@test.com",
-            "password": "password123",
-        })
+        res = client.post(
+            "/api/signup",
+            json={
+                "firstName": "Jorge",
+                "lastName": "Otero",
+                "email": "jorge@test.com",
+                "password": "password123",
+            },
+        )
         assert res.status_code == 201
         assert "Cuenta creada" in res.get_json()["message"]
 
@@ -121,11 +129,12 @@ class TestSignup:
 # 3. AUTH — LOGIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestLogin:
     def test_login_exitoso_devuelve_token(self, client):
-        client.post("/api/signup", json={
-            "firstName": "Jorge", "email": "j@test.com", "password": "pass123"
-        })
+        client.post(
+            "/api/signup", json={"firstName": "Jorge", "email": "j@test.com", "password": "pass123"}
+        )
         res = client.post("/api/login", json={"email": "j@test.com", "password": "pass123"})
         assert res.status_code == 200
         data = res.get_json()
@@ -134,9 +143,10 @@ class TestLogin:
         assert data["user"]["email"] == "j@test.com"
 
     def test_login_password_incorrecta(self, client):
-        client.post("/api/signup", json={
-            "firstName": "Jorge", "email": "j@test.com", "password": "correcta"
-        })
+        client.post(
+            "/api/signup",
+            json={"firstName": "Jorge", "email": "j@test.com", "password": "correcta"},
+        )
         res = client.post("/api/login", json={"email": "j@test.com", "password": "incorrecta"})
         assert res.status_code == 401
 
@@ -153,6 +163,7 @@ class TestLogin:
 # 4. PERFIL (/me)
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestPerfil:
     def test_get_perfil_autenticado(self, client):
         token = register_and_login(client, "me@test.com")
@@ -166,8 +177,7 @@ class TestPerfil:
 
     def test_update_perfil(self, client):
         token = register_and_login(client, "upd@test.com")
-        res = client.put("/api/me", headers=auth_headers(token),
-                         json={"firstName": "NuevoNombre"})
+        res = client.put("/api/me", headers=auth_headers(token), json={"firstName": "NuevoNombre"})
         assert res.status_code == 200
         assert res.get_json()["firstName"] == "NuevoNombre"
 
@@ -175,6 +185,7 @@ class TestPerfil:
 # ═══════════════════════════════════════════════════════════════════════════════
 # 5. PRODUCTOS
 # ═══════════════════════════════════════════════════════════════════════════════
+
 
 class TestProductos:
     def test_get_products_lista_vacia(self, client):
@@ -202,10 +213,12 @@ class TestProductos:
 
     def test_get_products_filtrar_por_categoria(self, client, app):
         with app.app_context():
-            db.session.add(Product(name="Manzana", price=100, stock=10,
-                                   is_active=True, category="frutas"))
-            db.session.add(Product(name="Zanahoria", price=50, stock=20,
-                                   is_active=True, category="verduras"))
+            db.session.add(
+                Product(name="Manzana", price=100, stock=10, is_active=True, category="frutas")
+            )
+            db.session.add(
+                Product(name="Zanahoria", price=50, stock=20, is_active=True, category="verduras")
+            )
             db.session.commit()
         res = client.get("/api/products?category=frutas")
         assert res.status_code == 200
@@ -227,6 +240,7 @@ class TestProductos:
 # 6. CARRITO
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestCarrito:
     def test_get_cart_sin_token_devuelve_401(self, client):
         res = client.get("/api/cart")
@@ -241,8 +255,9 @@ class TestCarrito:
     def test_agregar_producto_al_carrito(self, client, app):
         pid = create_product(app, name="Pera", price=90.0)
         token = register_and_login(client, "cart2@test.com")
-        res = client.post("/api/cart", headers=auth_headers(token),
-                          json={"product_id": pid, "quantity": 2})
+        res = client.post(
+            "/api/cart", headers=auth_headers(token), json={"product_id": pid, "quantity": 2}
+        )
         assert res.status_code == 201
         data = res.get_json()
         assert data["quantity"] == 2
@@ -287,14 +302,14 @@ class TestCarrito:
 
     def test_cart_producto_inexistente(self, client):
         token = register_and_login(client, "cart7@test.com")
-        res = client.post("/api/cart", headers=auth_headers(token),
-                          json={"product_id": 9999})
+        res = client.post("/api/cart", headers=auth_headers(token), json={"product_id": 9999})
         assert res.status_code == 404
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 7. FAVORITOS
 # ═══════════════════════════════════════════════════════════════════════════════
+
 
 class TestFavoritos:
     def test_get_favoritos_sin_token(self, client):
@@ -310,8 +325,7 @@ class TestFavoritos:
     def test_agregar_favorito(self, client, app):
         pid = create_product(app, name="Frutilla", price=300.0)
         token = register_and_login(client, "fav2@test.com")
-        res = client.post("/api/favorites", headers=auth_headers(token),
-                          json={"product_id": pid})
+        res = client.post("/api/favorites", headers=auth_headers(token), json={"product_id": pid})
         assert res.status_code == 201
         assert res.get_json()["product_id"] == pid
 
@@ -337,6 +351,7 @@ class TestFavoritos:
 # 8. ÓRDENES
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestOrdenes:
     def test_get_orders_sin_token(self, client):
         res = client.get("/api/orders")
@@ -353,8 +368,7 @@ class TestOrdenes:
         token = register_and_login(client, "ord2@test.com")
         headers = auth_headers(token)
         # Agregar al carrito
-        client.post("/api/cart", headers=headers,
-                    json={"product_id": pid, "quantity": 3})
+        client.post("/api/cart", headers=headers, json={"product_id": pid, "quantity": 3})
         # Confirmar orden
         res = client.post("/api/orders", headers=headers)
         assert res.status_code == 201
@@ -392,11 +406,12 @@ class TestOrdenes:
 # 9. FORGOT PASSWORD
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestForgotPassword:
     def test_email_registrado(self, client):
-        client.post("/api/signup", json={
-            "firstName": "A", "email": "fp@test.com", "password": "pass"
-        })
+        client.post(
+            "/api/signup", json={"firstName": "A", "email": "fp@test.com", "password": "pass"}
+        )
         res = client.post("/api/forgot-password", json={"email": "fp@test.com"})
         assert res.status_code == 200
 
@@ -413,14 +428,16 @@ class TestForgotPassword:
 # 10. AISLAMIENTO — cada usuario solo ve sus propios datos
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 class TestAislamiento:
     def test_usuario_no_ve_carrito_ajeno(self, client, app):
         pid = create_product(app, name="Ciruela", price=180.0)
         token_a = register_and_login(client, "a@test.com")
         token_b = register_and_login(client, "b@test.com")
         # Usuario A agrega al carrito
-        client.post("/api/cart", headers=auth_headers(token_a),
-                    json={"product_id": pid, "quantity": 2})
+        client.post(
+            "/api/cart", headers=auth_headers(token_a), json={"product_id": pid, "quantity": 2}
+        )
         # Usuario B tiene carrito vacío
         cart_b = client.get("/api/cart", headers=auth_headers(token_b)).get_json()
         assert cart_b == []
@@ -429,8 +446,7 @@ class TestAislamiento:
         pid = create_product(app, name="Durazno", price=220.0)
         token_a = register_and_login(client, "fa@test.com")
         token_b = register_and_login(client, "fb@test.com")
-        client.post("/api/favorites", headers=auth_headers(token_a),
-                    json={"product_id": pid})
+        client.post("/api/favorites", headers=auth_headers(token_a), json={"product_id": pid})
         favs_b = client.get("/api/favorites", headers=auth_headers(token_b)).get_json()
         assert favs_b == []
 
@@ -438,8 +454,9 @@ class TestAislamiento:
         pid = create_product(app, name="Palta", price=350.0)
         token_a = register_and_login(client, "oa@test.com")
         token_b = register_and_login(client, "ob@test.com")
-        client.post("/api/cart", headers=auth_headers(token_a),
-                    json={"product_id": pid, "quantity": 1})
+        client.post(
+            "/api/cart", headers=auth_headers(token_a), json={"product_id": pid, "quantity": 1}
+        )
         client.post("/api/orders", headers=auth_headers(token_a))
         orders_b = client.get("/api/orders", headers=auth_headers(token_b)).get_json()
         assert orders_b == []

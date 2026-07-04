@@ -1,4 +1,5 @@
-﻿from flask import jsonify, url_for
+from flask import url_for
+
 
 class APIException(Exception):
     status_code = 400
@@ -12,8 +13,9 @@ class APIException(Exception):
 
     def to_dict(self):
         rv = dict(self.payload or ())
-        rv['message'] = self.message
+        rv["message"] = self.message
         return rv
+
 
 def generate_sitemap(app):
     links = []

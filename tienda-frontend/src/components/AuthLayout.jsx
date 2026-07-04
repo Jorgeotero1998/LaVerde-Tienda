@@ -6,7 +6,9 @@ const AuthLayout = ({ icon, title, subtitle, children, wide }) => (
     <div className="auth-page__orb auth-page__orb--2" aria-hidden="true" />
     <div className={"auth-page__inner " + (wide ? "auth-page__inner--wide" : "")}>
       <header className="auth-page__header">
-        <span className="auth-page__icon" aria-hidden="true">{icon}</span>
+        <span className="auth-page__icon" aria-hidden="true">
+          {icon}
+        </span>
         <h1 className="auth-page__title">{title}</h1>
         {subtitle && <p className="auth-page__subtitle">{subtitle}</p>}
       </header>

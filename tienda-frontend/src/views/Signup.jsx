@@ -6,11 +6,19 @@ import AuthLayout from "../components/AuthLayout";
 const Signup = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", password: "", confirm: "" });
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirm: "",
+  });
   const [loading, setLoading] = useState(false);
   const [fieldError, setFieldError] = useState("");
 
-  useEffect(() => { actions.clearMessage(); }, []);
+  useEffect(() => {
+    actions.clearMessage();
+  }, [actions]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -56,41 +64,103 @@ const Signup = () => {
       <form onSubmit={handleSubmit}>
         <div className="row g-3 mb-0">
           <div className="col-6 ui-field">
-            <label className="ui-label" htmlFor="signup-first">Nombre</label>
-            <input id="signup-first" type="text" name="firstName" className="form-control-dark" placeholder="Juan" value={form.firstName} onChange={handleChange} required />
+            <label className="ui-label" htmlFor="signup-first">
+              Nombre
+            </label>
+            <input
+              id="signup-first"
+              type="text"
+              name="firstName"
+              className="form-control-dark"
+              placeholder="Juan"
+              value={form.firstName}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="col-6 ui-field">
-            <label className="ui-label" htmlFor="signup-last">Apellido</label>
-            <input id="signup-last" type="text" name="lastName" className="form-control-dark" placeholder="García" value={form.lastName} onChange={handleChange} required />
+            <label className="ui-label" htmlFor="signup-last">
+              Apellido
+            </label>
+            <input
+              id="signup-last"
+              type="text"
+              name="lastName"
+              className="form-control-dark"
+              placeholder="García"
+              value={form.lastName}
+              onChange={handleChange}
+              required
+            />
           </div>
         </div>
 
         <div className="ui-field">
-          <label className="ui-label" htmlFor="signup-email">Email</label>
-          <input id="signup-email" type="email" name="email" className="form-control-dark" placeholder="tu@email.com" value={form.email} onChange={handleChange} required />
+          <label className="ui-label" htmlFor="signup-email">
+            Email
+          </label>
+          <input
+            id="signup-email"
+            type="email"
+            name="email"
+            className="form-control-dark"
+            placeholder="tu@email.com"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ui-field">
-          <label className="ui-label" htmlFor="signup-pass">Contraseña</label>
-          <input id="signup-pass" type="password" name="password" className="form-control-dark" placeholder="Mínimo 4 caracteres" value={form.password} onChange={handleChange} required />
+          <label className="ui-label" htmlFor="signup-pass">
+            Contraseña
+          </label>
+          <input
+            id="signup-pass"
+            type="password"
+            name="password"
+            className="form-control-dark"
+            placeholder="Mínimo 4 caracteres"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ui-field">
-          <label className="ui-label" htmlFor="signup-confirm">Confirmar contraseña</label>
-          <input id="signup-confirm" type="password" name="confirm" className="form-control-dark" placeholder="Repetí tu contraseña" value={form.confirm} onChange={handleChange} required />
+          <label className="ui-label" htmlFor="signup-confirm">
+            Confirmar contraseña
+          </label>
+          <input
+            id="signup-confirm"
+            type="password"
+            name="confirm"
+            className="form-control-dark"
+            placeholder="Repetí tu contraseña"
+            value={form.confirm}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <button type="submit" className="btn btn-accent btn-accent--block" disabled={loading}>
           {loading ? (
-            <><span className="spinner-verde me-2"></span> Creando cuenta...</>
+            <>
+              <span className="spinner-verde me-2"></span> Creando cuenta...
+            </>
           ) : (
-            <><i className="fas fa-user-plus me-2"></i> Crear cuenta</>
+            <>
+              <i className="fas fa-user-plus me-2"></i> Crear cuenta
+            </>
           )}
         </button>
       </form>
 
       <p className="auth-page__footer-text">
-        ¿Ya tenés cuenta? <Link to="/login" className="ui-link">Iniciá sesión</Link>
+        ¿Ya tenés cuenta?{" "}
+        <Link to="/login" className="ui-link">
+          Iniciá sesión
+        </Link>
       </p>
     </AuthLayout>
   );

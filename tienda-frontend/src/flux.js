@@ -89,12 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
     },
 
     signup: async (firstName, lastName, email, password) => {
-      if (
-        !firstName?.trim() ||
-        !lastName?.trim() ||
-        !email?.trim() ||
-        !password?.trim()
-      ) {
+      if (!firstName?.trim() || !lastName?.trim() || !email?.trim() || !password?.trim()) {
         setStore({ error: "Todos los campos son obligatorios." });
         return false;
       }
@@ -110,8 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
         });
         return true;
       } catch (err) {
-        const isNetwork =
-          err.message === "Failed to fetch" || err.name === "TypeError";
+        const isNetwork = err.message === "Failed to fetch" || err.name === "TypeError";
         setStore({
           error: isNetwork
             ? "No se pudo conectar al servidor. Ejecutá: python run_backend.py"
@@ -136,8 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
         await getActions().fetchFavorites();
         return true;
       } catch (err) {
-        const isNetwork =
-          err.message === "Failed to fetch" || err.name === "TypeError";
+        const isNetwork = err.message === "Failed to fetch" || err.name === "TypeError";
         setStore({
           error: isNetwork
             ? "No se pudo conectar al servidor. ¿Está corriendo el backend? (python run_backend.py en la raíz del proyecto)"
@@ -173,9 +166,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
 
     getProduct: (id) => {
       const store = getStore();
-      const productMatch = store.products.find(
-        (item) => Number(item.id) === Number(id),
-      );
+      const productMatch = store.products.find((item) => Number(item.id) === Number(id));
       setStore({ product: productMatch || {} });
     },
 
@@ -255,9 +246,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
       }
 
       const store = getStore();
-      const existing = store.cart.find(
-        (item) => Number(item.id) === Number(product.id),
-      );
+      const existing = store.cart.find((item) => Number(item.id) === Number(product.id));
       let updatedCart;
       if (existing) {
         updatedCart = store.cart.map((item) =>
@@ -285,9 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
       }
 
       const store = getStore();
-      const updatedCart = store.cart.filter(
-        (item) => Number(item.id) !== Number(productId),
-      );
+      const updatedCart = store.cart.filter((item) => Number(item.id) !== Number(productId));
       saveGuestCart(updatedCart);
       setStore({ cart: updatedCart });
     },
@@ -314,9 +301,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
 
       const store = getStore();
       const updatedCart = store.cart.map((item) =>
-        Number(item.id) === Number(productId)
-          ? { ...item, quantity: Number(quantity) }
-          : item,
+        Number(item.id) === Number(productId) ? { ...item, quantity: Number(quantity) } : item,
       );
       saveGuestCart(updatedCart);
       setStore({ cart: updatedCart });
@@ -366,9 +351,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
       }
 
       const store = getStore();
-      const isFav = store.favorites.some(
-        (f) => Number(f.product_id) === Number(productId),
-      );
+      const isFav = store.favorites.some((f) => Number(f.product_id) === Number(productId));
 
       try {
         if (isFav) {

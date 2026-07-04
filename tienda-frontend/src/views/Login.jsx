@@ -9,8 +9,12 @@ const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { actions.clearMessage(); }, []);
-  useEffect(() => { if (store.token) navigate("/"); }, [store.token, navigate]);
+  useEffect(() => {
+    actions.clearMessage();
+  }, [actions]);
+  useEffect(() => {
+    if (store.token) navigate("/");
+  }, [store.token, navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -39,7 +43,9 @@ const Login = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="ui-field">
-          <label className="ui-label" htmlFor="login-email">Email</label>
+          <label className="ui-label" htmlFor="login-email">
+            Email
+          </label>
           <input
             id="login-email"
             type="email"
@@ -53,7 +59,9 @@ const Login = () => {
         </div>
 
         <div className="ui-field">
-          <label className="ui-label" htmlFor="login-password">Contraseña</label>
+          <label className="ui-label" htmlFor="login-password">
+            Contraseña
+          </label>
           <input
             id="login-password"
             type="password"
@@ -67,26 +75,34 @@ const Login = () => {
         </div>
 
         <div className="text-end mb-3">
-          <Link to="/forgot-password" className="ui-link">¿Olvidaste tu contraseña?</Link>
+          <Link to="/forgot-password" className="ui-link">
+            ¿Olvidaste tu contraseña?
+          </Link>
         </div>
 
         <button type="submit" className="btn btn-accent btn-accent--block" disabled={loading}>
           {loading ? (
-            <><span className="spinner-verde me-2"></span> Ingresando...</>
+            <>
+              <span className="spinner-verde me-2"></span> Ingresando...
+            </>
           ) : (
-            <><i className="fas fa-sign-in-alt me-2"></i> Iniciar sesión</>
+            <>
+              <i className="fas fa-sign-in-alt me-2"></i> Iniciar sesión
+            </>
           )}
         </button>
       </form>
 
       <p className="auth-page__footer-text">
-        ¿No tenés cuenta? <Link to="/signup" className="ui-link">Registrate gratis</Link>
+        ¿No tenés cuenta?{" "}
+        <Link to="/signup" className="ui-link">
+          Registrate gratis
+        </Link>
       </p>
 
       <div className="ui-demo-hint">
         Admin: <strong>admin@laverde.com</strong> / <strong>admin1234</strong>
-        <br />
-        O registrate en <strong>Registrate</strong> para cuenta de cliente.
+        <br />O registrate en <strong>Registrate</strong> para cuenta de cliente.
       </div>
     </AuthLayout>
   );

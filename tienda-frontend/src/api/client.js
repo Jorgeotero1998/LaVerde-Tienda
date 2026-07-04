@@ -32,7 +32,9 @@ export const apiFetch = async (path, options = {}) => {
   }
 
   if (!res.ok) {
-    const err = new Error(data?.error || data?.message || "Error en la solicitud");
+    const err = /** @type {any} */ (
+      new Error(data?.error || data?.message || "Error en la solicitud")
+    );
     err.status = res.status;
     err.data = data;
     throw err;
@@ -65,7 +67,7 @@ export const apiUploadImage = async (file) => {
   }
 
   if (!res.ok) {
-    const err = new Error(data?.error || "No se pudo subir la imagen");
+    const err = /** @type {any} */ (new Error(data?.error || "No se pudo subir la imagen"));
     err.status = res.status;
     err.data = data;
     throw err;

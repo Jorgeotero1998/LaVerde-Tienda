@@ -8,9 +8,7 @@ def ensure_user_admin_column(db):
     columns = {col["name"] for col in inspector.get_columns("user")}
     if "is_admin" not in columns:
         with db.engine.begin() as conn:
-            conn.execute(
-                text("ALTER TABLE user ADD COLUMN is_admin BOOLEAN DEFAULT 0 NOT NULL")
-            )
+            conn.execute(text("ALTER TABLE user ADD COLUMN is_admin BOOLEAN DEFAULT 0 NOT NULL"))
 
 
 def ensure_admin_user(db, User):

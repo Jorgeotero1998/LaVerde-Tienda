@@ -37,7 +37,9 @@ const Cart = () => {
       <div className="success-screen">
         <span className="success-screen__icon">🎉</span>
         <h2 className="page-header__title">¡Pedido confirmado!</h2>
-        <p className="text-muted-theme">Tu pedido fue recibido. Te avisamos cuando esté en camino 🚚</p>
+        <p className="text-muted-theme">
+          Tu pedido fue recibido. Te avisamos cuando esté en camino 🚚
+        </p>
         <div className="success-screen__bar"></div>
       </div>
     );
@@ -49,7 +51,9 @@ const Cart = () => {
         <span className="success-screen__icon">🧺</span>
         <h3 className="page-header__title">Tu carrito está vacío</h3>
         <p className="text-muted-theme">Agregá productos frescos desde nuestra tienda</p>
-        <Link to="/" className="btn btn-accent mt-2">Ver productos</Link>
+        <Link to="/" className="btn btn-accent mt-2">
+          Ver productos
+        </Link>
       </div>
     );
   }
@@ -59,7 +63,12 @@ const Cart = () => {
       <div className="container">
         <PageHeader
           title="🧺 Tu carrito"
-          subtitle={store.cart.length + " " + (store.cart.length === 1 ? "producto" : "productos") + " · Checkout"}
+          subtitle={
+            store.cart.length +
+            " " +
+            (store.cart.length === 1 ? "producto" : "productos") +
+            " · Checkout"
+          }
         />
 
         {store.error && (
@@ -73,32 +82,62 @@ const Cart = () => {
             <section className="checkout-panel mb-4">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2 className="h6 fw-bold mb-0">Productos</h2>
-                <button type="button" className="btn btn-sm btn-outline-accent" onClick={() => actions.clearCart()}>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-accent"
+                  onClick={() => actions.clearCart()}
+                >
                   <i className="fas fa-trash me-1"></i> Vaciar
                 </button>
               </div>
 
               {store.cart.map((item, idx) => (
-                <div key={item.id} className={"d-flex align-items-center gap-3 py-3 " + (idx < store.cart.length - 1 ? "border-bottom-cart" : "")}>
+                <div
+                  key={item.id}
+                  className={
+                    "d-flex align-items-center gap-3 py-3 " +
+                    (idx < store.cart.length - 1 ? "border-bottom-cart" : "")
+                  }
+                >
                   <img
                     src={getProductImage(item)}
                     alt={item.name}
                     className="checkout-summary__thumb"
-                    onError={(e) => { e.currentTarget.src = fallbackProductImage(item); }}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackProductImage(item);
+                    }}
                   />
                   <div className="flex-grow-1">
                     <div className="fw-bold">{item.name}</div>
-                    <div className="text-muted-theme small">{item.category} · ${parseFloat(item.price).toFixed(2)} / {item.unit}</div>
+                    <div className="text-muted-theme small">
+                      {item.category} · ${parseFloat(item.price).toFixed(2)} / {item.unit}
+                    </div>
                   </div>
                   <div className="qty-control">
-                    <button type="button" className="qty-control__btn" onClick={() => actions.updateCartQuantity(item.id, item.quantity - 1)}>−</button>
+                    <button
+                      type="button"
+                      className="qty-control__btn"
+                      onClick={() => actions.updateCartQuantity(item.id, item.quantity - 1)}
+                    >
+                      −
+                    </button>
                     <span className="qty-control__value">{item.quantity}</span>
-                    <button type="button" className="qty-control__btn" onClick={() => actions.updateCartQuantity(item.id, item.quantity + 1)}>+</button>
+                    <button
+                      type="button"
+                      className="qty-control__btn"
+                      onClick={() => actions.updateCartQuantity(item.id, item.quantity + 1)}
+                    >
+                      +
+                    </button>
                   </div>
                   <div className="fw-bold text-accent text-end cart-line-price">
                     ${(item.price * item.quantity).toFixed(0)}
                   </div>
-                  <button type="button" className="cart-drawer__remove" onClick={() => actions.removeFromCart(item.id)}>
+                  <button
+                    type="button"
+                    className="cart-drawer__remove"
+                    onClick={() => actions.removeFromCart(item.id)}
+                  >
                     <i className="fas fa-trash-alt"></i>
                   </button>
                 </div>
@@ -117,7 +156,9 @@ const Cart = () => {
                 </div>
               ) : (
                 <p className="text-muted-theme small mb-0">
-                  {shipping === 0 ? "🚚 Envío gratis aplicado a tu pedido" : "El envío se calcula según tu zona al finalizar."}
+                  {shipping === 0
+                    ? "🚚 Envío gratis aplicado a tu pedido"
+                    : "El envío se calcula según tu zona al finalizar."}
                 </p>
               )}
             </section>
@@ -133,12 +174,16 @@ const Cart = () => {
                     src={getProductImage(item)}
                     alt={item.name}
                     className="checkout-summary__thumb"
-                    onError={(e) => { e.currentTarget.src = fallbackProductImage(item); }}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackProductImage(item);
+                    }}
                   />
                   <span className="checkout-summary__qty-badge">{item.quantity}</span>
                 </div>
                 <span className="flex-grow-1 small fw-semibold">{item.name}</span>
-                <span className="fw-bold text-accent">${(item.price * item.quantity).toFixed(0)}</span>
+                <span className="fw-bold text-accent">
+                  ${(item.price * item.quantity).toFixed(0)}
+                </span>
               </div>
             ))}
 
@@ -148,7 +193,9 @@ const Cart = () => {
             </div>
             <div className="d-flex justify-content-between small text-muted-theme mb-3">
               <span>Envío</span>
-              <span className="fw-semibold">{shipping === 0 ? "Gratis 🚚" : "$" + shipping.toFixed(2)}</span>
+              <span className="fw-semibold">
+                {shipping === 0 ? "Gratis 🚚" : "$" + shipping.toFixed(2)}
+              </span>
             </div>
 
             {shipping > 0 && (
@@ -165,11 +212,20 @@ const Cart = () => {
             </div>
 
             {store.token ? (
-              <button type="button" className="btn btn-accent btn-accent--block py-3" onClick={handleOrder} disabled={isProcessing}>
+              <button
+                type="button"
+                className="btn btn-accent btn-accent--block py-3"
+                onClick={handleOrder}
+                disabled={isProcessing}
+              >
                 {isProcessing ? (
-                  <><span className="spinner-verde me-2"></span> Procesando...</>
+                  <>
+                    <span className="spinner-verde me-2"></span> Procesando...
+                  </>
                 ) : (
-                  <><i className="fas fa-check-circle me-2"></i> Finalizar compra</>
+                  <>
+                    <i className="fas fa-check-circle me-2"></i> Finalizar compra
+                  </>
                 )}
               </button>
             ) : (
@@ -178,7 +234,10 @@ const Cart = () => {
                   Iniciar sesión para comprar
                 </Link>
                 <p className="small text-muted-theme text-center mb-0">
-                  ¿No tenés cuenta? <Link to="/signup" className="ui-link">Registrate</Link>
+                  ¿No tenés cuenta?{" "}
+                  <Link to="/signup" className="ui-link">
+                    Registrate
+                  </Link>
                 </p>
               </>
             )}

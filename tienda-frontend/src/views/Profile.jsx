@@ -10,10 +10,18 @@ const Profile = () => {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    if (!store.token) { navigate("/login"); return; }
-    if (store.user) setForm({ firstName: store.user.firstName || "", lastName: store.user.lastName || "", email: store.user.email || "" });
+    if (!store.token) {
+      navigate("/login");
+      return;
+    }
+    if (store.user)
+      setForm({
+        firstName: store.user.firstName || "",
+        lastName: store.user.lastName || "",
+        email: store.user.email || "",
+      });
     actions.clearMessage();
-  }, [store.token, store.user, navigate]);
+  }, [store.token, store.user, navigate, actions]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -66,25 +74,61 @@ const Profile = () => {
           <form onSubmit={handleSubmit}>
             <div className="row g-3">
               <div className="col-md-6 ui-field">
-                <label className="ui-label" htmlFor="profile-first">Nombre</label>
-                <input id="profile-first" type="text" name="firstName" className="form-control-dark" value={form.firstName} onChange={handleChange} required />
+                <label className="ui-label" htmlFor="profile-first">
+                  Nombre
+                </label>
+                <input
+                  id="profile-first"
+                  type="text"
+                  name="firstName"
+                  className="form-control-dark"
+                  value={form.firstName}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="col-md-6 ui-field">
-                <label className="ui-label" htmlFor="profile-last">Apellido</label>
-                <input id="profile-last" type="text" name="lastName" className="form-control-dark" value={form.lastName} onChange={handleChange} />
+                <label className="ui-label" htmlFor="profile-last">
+                  Apellido
+                </label>
+                <input
+                  id="profile-last"
+                  type="text"
+                  name="lastName"
+                  className="form-control-dark"
+                  value={form.lastName}
+                  onChange={handleChange}
+                />
               </div>
             </div>
 
             <div className="ui-field">
-              <label className="ui-label" htmlFor="profile-email">Email</label>
-              <input id="profile-email" type="email" name="email" className="form-control-dark" value={form.email} onChange={handleChange} required />
+              <label className="ui-label" htmlFor="profile-email">
+                Email
+              </label>
+              <input
+                id="profile-email"
+                type="email"
+                name="email"
+                className="form-control-dark"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="d-flex gap-3 flex-wrap">
               <button type="submit" className="btn btn-accent">
                 <i className="fas fa-save me-2"></i> Guardar cambios
               </button>
-              <button type="button" className="btn btn-outline-accent" onClick={() => { actions.logout(); navigate("/"); }}>
+              <button
+                type="button"
+                className="btn btn-outline-accent"
+                onClick={() => {
+                  actions.logout();
+                  navigate("/");
+                }}
+              >
                 <i className="fas fa-sign-out-alt me-2"></i> Cerrar sesión
               </button>
             </div>

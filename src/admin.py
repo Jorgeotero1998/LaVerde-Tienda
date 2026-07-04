@@ -6,6 +6,7 @@ from api.models import db, User, Product, Favorite, CartItem, Order, OrderItem
 
 class SecureModelView(ModelView):
     """Vista base — en producción podrías agregar autenticación aquí."""
+
     column_display_pk = True
     column_hide_backrefs = False
 
