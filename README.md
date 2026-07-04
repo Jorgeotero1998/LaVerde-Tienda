@@ -1,5 +1,6 @@
 # 🌿 LaVerde Tienda
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![CI](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml/badge.svg)](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org)
 [![React 19](https://img.shields.io/badge/React-19-61dafb)](https://react.dev)
 [![Status](https://img.shields.io/badge/Status-Production-brightgreen)](#)
@@ -23,7 +24,7 @@ Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto 
 ### Frontend
 - **Framework:** React (Create React App)
 - **Estilos:** Bootstrap 5 + CSS personalizado
-- **Routing:** React Router v6
+- **Routing:** React Router v7
 - **Deploy:** Render (Static Site)
 
 ---
@@ -97,15 +98,30 @@ Abrí **dos terminales** desde la raíz del proyecto:
 **Terminal 1 — Backend** (http://127.0.0.1:3001):
 ```powershell
 .\.venv\Scripts\Activate.ps1
-.\iniciar-backend.ps1
+.\scripts\iniciar-backend.ps1
 ```
 
 **Terminal 2 — Frontend** (http://localhost:3000):
 ```powershell
-.\iniciar-frontend.ps1
+.\scripts\iniciar-frontend.ps1
 ```
 
 ---
+
+## 🐳 Docker (local)
+
+### Desarrollo (hot reload)
+```bash
+docker compose up --build
+```
+
+- Frontend: http://localhost:3000  
+- Backend: http://localhost:3001  
+
+### Preview producción (Nginx + build estático)
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
 
 ## 🔑 Variables de entorno
 
@@ -161,10 +177,34 @@ Para más detalles, consulta:
 | GET | `/api/favorites` | Favoritos (requiere JWT) |
 
 ## Tests
-\```bash
+```bash
 $env:PYTHONPATH = "src"
 pytest test_api.py -v   # 44 tests
-\```
+```
+
+---
+
+## ✅ Quality gates (local)
+
+### Backend
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+ruff check .
+ruff format --check .
+mypy src
+PYTHONPATH=src pytest -q
+```
+
+### Frontend
+```bash
+cd tienda-frontend
+npm ci
+npm run lint
+npm run format:check
+npm run typecheck
+CI=true npm run test:ci
+npm run build
+```
 
 ---
 

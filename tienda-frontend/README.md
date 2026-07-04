@@ -183,10 +183,10 @@ En `package.json` existen estos scripts:
 
 ```json
 {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
 }
 ```
 
@@ -282,45 +282,45 @@ tienda-frontend/
 La aplicacion esta organizada en cuatro capas principales:
 
 1. **Entrada de la app**
-   - `src/index.js`
-   - Renderiza React en el DOM.
-   - Importa Bootstrap, Font Awesome y estilos globales.
-   - Envuelve `App` con el contexto global mediante `injectContext`.
+    - `src/index.js`
+    - Renderiza React en el DOM.
+    - Importa Bootstrap, Font Awesome y estilos globales.
+    - Envuelve `App` con el contexto global mediante `injectContext`.
 
 2. **Ruteo**
-   - `src/App.js`
-   - Define todas las rutas del frontend.
-   - Monta `Navbar`, contenido principal y `Footer`.
-   - Protege rutas privadas y rutas admin.
+    - `src/App.js`
+    - Define todas las rutas del frontend.
+    - Monta `Navbar`, contenido principal y `Footer`.
+    - Protege rutas privadas y rutas admin.
 
 3. **Estado global**
-   - `src/flux.js`
-   - Contiene `store` y `actions`.
-   - Centraliza productos, usuario, token, carrito, favoritos, pedidos, errores y mensajes.
+    - `src/flux.js`
+    - Contiene `store` y `actions`.
+    - Centraliza productos, usuario, token, carrito, favoritos, pedidos, errores y mensajes.
 
 4. **Consumo del backend**
-   - `src/api/client.js`
-   - Construye la URL del API.
-   - Adjunta JWT cuando corresponde.
-   - Normaliza errores.
-   - Incluye helpers para mapear carrito y favoritos.
+    - `src/api/client.js`
+    - Construye la URL del API.
+    - Adjunta JWT cuando corresponde.
+    - Normaliza errores.
+    - Incluye helpers para mapear carrito y favoritos.
 
 ## Rutas del frontend
 
 Las rutas estan definidas en `src/App.js`.
 
-| Ruta | Componente | Acceso | Descripcion |
-| --- | --- | --- | --- |
-| `/` | `Home` | Publico | Catalogo principal, busqueda y filtros. |
-| `/product/:id` | `ProductDetail` | Publico | Detalle de producto y productos relacionados. |
-| `/login` | `Login` | Publico | Inicio de sesion. |
-| `/signup` | `Signup` | Publico | Registro de usuario. |
-| `/forgot-password` | `ForgotPassword` | Publico | Recuperacion de contrasena. |
-| `/cart` | `Cart` | Publico/parcial | Checkout visual; requiere login para confirmar pedido. |
-| `/favorites` | `Favorites` | Privado | Productos favoritos del usuario. |
-| `/profile` | `Profile` | Privado | Edicion de datos personales. |
-| `/orders` | `Orders` | Privado | Historial de pedidos. |
-| `/admin` | `Admin` | Admin | Gestion de inventario. |
+| Ruta               | Componente       | Acceso          | Descripcion                                            |
+| ------------------ | ---------------- | --------------- | ------------------------------------------------------ |
+| `/`                | `Home`           | Publico         | Catalogo principal, busqueda y filtros.                |
+| `/product/:id`     | `ProductDetail`  | Publico         | Detalle de producto y productos relacionados.          |
+| `/login`           | `Login`          | Publico         | Inicio de sesion.                                      |
+| `/signup`          | `Signup`         | Publico         | Registro de usuario.                                   |
+| `/forgot-password` | `ForgotPassword` | Publico         | Recuperacion de contrasena.                            |
+| `/cart`            | `Cart`           | Publico/parcial | Checkout visual; requiere login para confirmar pedido. |
+| `/favorites`       | `Favorites`      | Privado         | Productos favoritos del usuario.                       |
+| `/profile`         | `Profile`        | Privado         | Edicion de datos personales.                           |
+| `/orders`          | `Orders`         | Privado         | Historial de pedidos.                                  |
+| `/admin`           | `Admin`          | Admin           | Gestion de inventario.                                 |
 
 ### Rutas privadas
 
@@ -377,27 +377,27 @@ El `store` incluye:
 
 ### Acciones principales
 
-| Accion | Funcion |
-| --- | --- |
-| `clearMessage` | Limpia mensajes y errores. |
-| `getProducts` | Obtiene productos del backend o usa catalogo fallback. |
-| `getProduct` | Busca un producto por id dentro del store. |
-| `signup` | Registra usuario nuevo. |
-| `login` | Inicia sesion y guarda token/usuario. |
-| `logout` | Limpia sesion y datos locales. |
-| `syncSession` | Valida sesion, trae perfil, carrito y favoritos. |
-| `fetchCart` | Carga carrito desde backend. |
-| `fetchFavorites` | Carga favoritos desde backend. |
-| `mergeGuestCartToApi` | Migra carrito invitado al backend despues del login. |
-| `addToCart` | Agrega producto al carrito local o remoto. |
-| `removeFromCart` | Elimina producto del carrito. |
-| `updateCartQuantity` | Actualiza cantidad de un producto. |
-| `clearCart` | Vacia carrito. |
-| `checkoutOrder` | Crea una orden en backend. |
-| `toggleFavorite` | Agrega o elimina favorito. |
-| `forgotPassword` | Solicita recuperacion de contrasena. |
-| `updateProfile` | Actualiza datos del usuario. |
-| `getOrders` | Obtiene historial de pedidos. |
+| Accion                | Funcion                                                |
+| --------------------- | ------------------------------------------------------ |
+| `clearMessage`        | Limpia mensajes y errores.                             |
+| `getProducts`         | Obtiene productos del backend o usa catalogo fallback. |
+| `getProduct`          | Busca un producto por id dentro del store.             |
+| `signup`              | Registra usuario nuevo.                                |
+| `login`               | Inicia sesion y guarda token/usuario.                  |
+| `logout`              | Limpia sesion y datos locales.                         |
+| `syncSession`         | Valida sesion, trae perfil, carrito y favoritos.       |
+| `fetchCart`           | Carga carrito desde backend.                           |
+| `fetchFavorites`      | Carga favoritos desde backend.                         |
+| `mergeGuestCartToApi` | Migra carrito invitado al backend despues del login.   |
+| `addToCart`           | Agrega producto al carrito local o remoto.             |
+| `removeFromCart`      | Elimina producto del carrito.                          |
+| `updateCartQuantity`  | Actualiza cantidad de un producto.                     |
+| `clearCart`           | Vacia carrito.                                         |
+| `checkoutOrder`       | Crea una orden en backend.                             |
+| `toggleFavorite`      | Agrega o elimina favorito.                             |
+| `forgotPassword`      | Solicita recuperacion de contrasena.                   |
+| `updateProfile`       | Actualiza datos del usuario.                           |
+| `getOrders`           | Obtiene historial de pedidos.                          |
 
 ## Cliente API
 
@@ -408,7 +408,7 @@ El archivo `src/api/client.js` centraliza la comunicacion HTTP.
 Construye la URL base:
 
 ```js
-(process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:3001") + "/api"
+(process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:3001") + "/api";
 ```
 
 Si `.env` no existe, usa `http://127.0.0.1:3001/api` por defecto.
@@ -469,20 +469,22 @@ Requiere usuario admin y token JWT.
 `mapFavoritesFromApi` transforma favoritos a:
 
 ```js
-{ product_id }
+{
+    product_id;
+}
 ```
 
 ## Persistencia en localStorage
 
 La aplicacion usa `localStorage` para mantener datos entre recargas.
 
-| Clave | Uso |
-| --- | --- |
-| `laverde_token` | JWT del usuario autenticado. |
-| `laverde_user` | Datos serializados del usuario. |
-| `laverde_cart` | Carrito de invitado antes de iniciar sesion. |
-| `laverde_products_v2` | Cache de productos obtenidos del backend. |
-| `laverde_products` | Clave heredada que se limpia al cargar productos desde API. |
+| Clave                 | Uso                                                         |
+| --------------------- | ----------------------------------------------------------- |
+| `laverde_token`       | JWT del usuario autenticado.                                |
+| `laverde_user`        | Datos serializados del usuario.                             |
+| `laverde_cart`        | Carrito de invitado antes de iniciar sesion.                |
+| `laverde_products_v2` | Cache de productos obtenidos del backend.                   |
+| `laverde_products`    | Clave heredada que se limpia al cargar productos desde API. |
 
 ### Carrito invitado
 
@@ -543,7 +545,7 @@ src/views/Signup.jsx
 Accion:
 
 ```js
-actions.signup(firstName, lastName, email, password)
+actions.signup(firstName, lastName, email, password);
 ```
 
 Endpoint:
@@ -569,7 +571,7 @@ src/views/Login.jsx
 Accion:
 
 ```js
-actions.login(email, password)
+actions.login(email, password);
 ```
 
 Endpoint:
@@ -592,7 +594,7 @@ Si el login es correcto:
 Accion:
 
 ```js
-actions.logout()
+actions.logout();
 ```
 
 Limpia:
@@ -669,7 +671,7 @@ Si el subtotal supera el umbral, el envio se considera gratis.
 Accion:
 
 ```js
-actions.checkoutOrder()
+actions.checkoutOrder();
 ```
 
 Endpoint:
@@ -732,7 +734,7 @@ src/views/Orders.jsx
 Accion:
 
 ```js
-actions.getOrders()
+actions.getOrders();
 ```
 
 Endpoint:
@@ -765,9 +767,9 @@ Funciones:
 - Mostrar datos del usuario actual.
 - Editar nombre, apellido y email.
 - Mostrar estadisticas rapidas:
-  - Cantidad de productos en carrito.
-  - Cantidad de favoritos.
-  - Total actual del carrito.
+    - Cantidad de productos en carrito.
+    - Cantidad de favoritos.
+    - Total actual del carrito.
 - Cerrar sesion.
 
 Endpoint:
@@ -822,14 +824,7 @@ El panel admin permite:
 ### Categorias admin
 
 ```js
-[
-  "Verduras",
-  "Frutas",
-  "Citricos",
-  "Hierbas",
-  "Condimentos",
-  "Pecuarios"
-]
+["Verduras", "Frutas", "Citricos", "Hierbas", "Condimentos", "Pecuarios"];
 ```
 
 ### Endpoints admin
@@ -954,22 +949,22 @@ src/index.css
 
 Algunas clases importantes:
 
-| Clase | Uso |
-| --- | --- |
-| `app-wrapper` | Contenedor general de la app. |
-| `navbar-verde` | Navbar principal. |
-| `hero-banner` | Hero del home. |
-| `catalog-layout` | Layout del catalogo con sidebar. |
-| `product-grid` | Grilla de productos. |
-| `product-card` | Tarjeta de producto. |
-| `btn-accent` | Boton principal. |
-| `btn-outline-accent` | Boton secundario. |
-| `ui-panel` | Panel visual reutilizable. |
-| `ui-alert` | Alertas de error/exito. |
-| `auth-page` | Layout de autenticacion. |
-| `cart-drawer` | Drawer lateral del carrito. |
-| `checkout-layout` | Layout de checkout. |
-| `page-header` | Encabezado de paginas internas. |
+| Clase                | Uso                              |
+| -------------------- | -------------------------------- |
+| `app-wrapper`        | Contenedor general de la app.    |
+| `navbar-verde`       | Navbar principal.                |
+| `hero-banner`        | Hero del home.                   |
+| `catalog-layout`     | Layout del catalogo con sidebar. |
+| `product-grid`       | Grilla de productos.             |
+| `product-card`       | Tarjeta de producto.             |
+| `btn-accent`         | Boton principal.                 |
+| `btn-outline-accent` | Boton secundario.                |
+| `ui-panel`           | Panel visual reutilizable.       |
+| `ui-alert`           | Alertas de error/exito.          |
+| `auth-page`          | Layout de autenticacion.         |
+| `cart-drawer`        | Drawer lateral del carrito.      |
+| `checkout-layout`    | Layout de checkout.              |
+| `page-header`        | Encabezado de paginas internas.  |
 
 La app tambien usa clases de Bootstrap como:
 
@@ -988,29 +983,29 @@ El frontend espera una API REST con prefijo `/api`.
 
 Endpoints usados:
 
-| Metodo | Endpoint | Uso |
-| --- | --- | --- |
-| `GET` | `/api/products` | Listar productos. |
-| `GET` | `/api/products/:id` | El frontend no lo usa directamente; obtiene detalle desde store. |
-| `POST` | `/api/signup` | Registrar usuario. |
-| `POST` | `/api/login` | Iniciar sesion. |
-| `POST` | `/api/forgot-password` | Recuperar contrasena. |
-| `GET` | `/api/me` | Obtener perfil actual. |
-| `PUT` | `/api/me` | Actualizar perfil. |
-| `GET` | `/api/cart` | Obtener carrito autenticado. |
-| `POST` | `/api/cart` | Agregar item al carrito. |
-| `PUT` | `/api/cart/:product_id` | Cambiar cantidad. |
-| `DELETE` | `/api/cart/:product_id` | Eliminar item. |
-| `DELETE` | `/api/cart` | Vaciar carrito. |
-| `GET` | `/api/favorites` | Obtener favoritos. |
-| `POST` | `/api/favorites` | Agregar favorito. |
-| `DELETE` | `/api/favorites/:product_id` | Eliminar favorito. |
-| `GET` | `/api/orders` | Obtener pedidos. |
-| `POST` | `/api/orders` | Crear pedido. |
-| `POST` | `/api/products` | Crear producto admin. |
-| `PUT` | `/api/products/:id` | Editar producto admin. |
-| `DELETE` | `/api/products/:id` | Eliminar producto admin. |
-| `POST` | `/api/upload/image` | Subir imagen admin. |
+| Metodo   | Endpoint                     | Uso                                                              |
+| -------- | ---------------------------- | ---------------------------------------------------------------- |
+| `GET`    | `/api/products`              | Listar productos.                                                |
+| `GET`    | `/api/products/:id`          | El frontend no lo usa directamente; obtiene detalle desde store. |
+| `POST`   | `/api/signup`                | Registrar usuario.                                               |
+| `POST`   | `/api/login`                 | Iniciar sesion.                                                  |
+| `POST`   | `/api/forgot-password`       | Recuperar contrasena.                                            |
+| `GET`    | `/api/me`                    | Obtener perfil actual.                                           |
+| `PUT`    | `/api/me`                    | Actualizar perfil.                                               |
+| `GET`    | `/api/cart`                  | Obtener carrito autenticado.                                     |
+| `POST`   | `/api/cart`                  | Agregar item al carrito.                                         |
+| `PUT`    | `/api/cart/:product_id`      | Cambiar cantidad.                                                |
+| `DELETE` | `/api/cart/:product_id`      | Eliminar item.                                                   |
+| `DELETE` | `/api/cart`                  | Vaciar carrito.                                                  |
+| `GET`    | `/api/favorites`             | Obtener favoritos.                                               |
+| `POST`   | `/api/favorites`             | Agregar favorito.                                                |
+| `DELETE` | `/api/favorites/:product_id` | Eliminar favorito.                                               |
+| `GET`    | `/api/orders`                | Obtener pedidos.                                                 |
+| `POST`   | `/api/orders`                | Crear pedido.                                                    |
+| `POST`   | `/api/products`              | Crear producto admin.                                            |
+| `PUT`    | `/api/products/:id`          | Editar producto admin.                                           |
+| `DELETE` | `/api/products/:id`          | Eliminar producto admin.                                         |
+| `POST`   | `/api/upload/image`          | Subir imagen admin.                                              |
 
 ### Manejo de errores de red
 
@@ -1050,7 +1045,7 @@ Con esa cuenta se puede entrar al panel:
 Desde el frontend, el link Admin aparece en la barra superior solo si:
 
 ```js
-store.user?.isAdmin
+store.user?.isAdmin;
 ```
 
 es verdadero.
@@ -1165,7 +1160,7 @@ Los favoritos requieren:
 El link Admin aparece solo si el usuario actual tiene:
 
 ```js
-isAdmin: true
+isAdmin: true;
 ```
 
 Usar la cuenta admin de prueba o verificar el usuario en backend.
