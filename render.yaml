@@ -14,8 +14,10 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
-      PYTHONPATH=src python -c "from src.app import app; from api.models import db; ctx=app.app_context(); ctx.push(); db.create_all()"
-    startCommand: PYTHONPATH=src python -c "from src.app import app; from api.commands import insert_test_data; ctx=app.app_context(); ctx.push(); insert_test_data()" && PYTHONPATH=src gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+      FLASK_APP=src/app.py PYTHONPATH=src flask db upgrade
+      FLASK_APP=src/app.py PYTHONPATH=src flask insert-test-data
+    startCommand: PYTHONPATH=src gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -27,11 +29,13 @@ services:
         value: "0"
       - key: FLASK_ENV
         value: production
+      - key: PYTHONPATH
+        value: src
       - key: JWT_SECRET_KEY
         sync: false
       - key: FLASK_APP_KEY
         sync: false
-      - key: FRONTEND_URL
+      - key: CORS_ORIGINS
         sync: false
       - key: CLOUDINARY_CLOUD_NAME
         sync: false

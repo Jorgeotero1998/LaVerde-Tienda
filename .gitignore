@@ -11,6 +11,7 @@ htmlcov/
 src/.venv/
 src/instance/
 src/*.db
+instance/*.db
 
 # Node
 node_modules/

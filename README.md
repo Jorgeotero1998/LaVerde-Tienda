@@ -3,11 +3,17 @@
 [![CI](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml/badge.svg)](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org)
 [![React 19](https://img.shields.io/badge/React-19-61dafb)](https://react.dev)
-[![Status](https://img.shields.io/badge/Status-Production-brightgreen)](#)
+[![Status](https://img.shields.io/badge/Status-Production-brightgreen)](https://laverde-frontend.onrender.com)
+[![Backend](https://img.shields.io/badge/API-laverde--backend.onrender.com-blue)](https://laverde-backend.onrender.com/health)
 
 Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.
 
-🔗 **Demo en producción:** https://laverde-frontend.onrender.com
+| Service | URL |
+|---|---|
+| 🖥️ Frontend | https://laverde-frontend.onrender.com |
+| ⚙️ Backend API | https://laverde-backend.onrender.com/api |
+| 🩺 Health check | https://laverde-backend.onrender.com/health |
+| 🛡️ Admin panel | https://laverde-backend.onrender.com/admin |
 
 ---
 
@@ -148,7 +154,7 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 |---|---|
 | Email | admin@laverde.com |
 | Contraseña | admin1234 |
-| Panel admin | https://laverde-backend.onrender.com/admin |
+| Panel admin | [https://laverde-backend.onrender.com/admin](https://laverde-backend.onrender.com/admin) |
 
 ---
 

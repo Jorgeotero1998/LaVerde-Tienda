@@ -3,10 +3,10 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-import click
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 from api.models import db
 from api.routes import api
 from api.admin import setup_admin
@@ -22,21 +22,26 @@ app.url_map.strict_slashes = False
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB}")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "la-verde-jwt-secret-dev")
+app.config["SECRET_KEY"] = os.getenv("FLASK_APP_KEY", "la-verde-flask-secret-dev")
 
 db.init_app(app)
+migrate = Migrate(app, db)
 JWTManager(app)
 
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+_cors_raw = os.getenv("CORS_ORIGINS", "*")
+_cors_origins: list[str] | str = (
+    "*" if _cors_raw.strip() == "*" else [o.strip() for o in _cors_raw.split(",") if o.strip()]
+)
+CORS(app, resources={r"/api/*": {"origins": _cors_origins}})
 
 setup_admin(app)
 setup_commands(app)
 app.register_blueprint(api, url_prefix="/api")
 
 
-@app.cli.command("db")
-@click.argument("args", nargs=-1)
-def fake_db(args):
-    db.create_all()
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"}), 200
 
 
 if __name__ == "__main__":
