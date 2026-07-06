@@ -1,18 +1,22 @@
 # 🌿 LaVerde Tienda
+
+**Live Demo:** [https://laverde-frontend.onrender.com/](https://laverde-frontend.onrender.com/)
+
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![CI](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml/badge.svg)](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org)
 [![React 19](https://img.shields.io/badge/React-19-61dafb)](https://react.dev)
 [![Status](https://img.shields.io/badge/Status-Production-brightgreen)](https://laverde-frontend.onrender.com)
-[![Backend](https://img.shields.io/badge/API-laverde--backend.onrender.com-blue)](https://laverde-backend.onrender.com/health)
+[![Backend](https://img.shields.io/badge/API-laverde--backend.onrender.com-blue)](https://laverde-backend.onrender.com/api)
 
 Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.
+
+> **Note for recruiters:** Frontend and backend run on Render free tier — first load may take ~30–60s while services wake up. Catalog browsing works once loaded; signup/login need the backend awake.
 
 | Service | URL |
 |---|---|
 | 🖥️ Frontend | https://laverde-frontend.onrender.com |
 | ⚙️ Backend API | https://laverde-backend.onrender.com/api |
-| 🩺 Health check | https://laverde-backend.onrender.com/health |
 | 🛡️ Admin panel | https://laverde-backend.onrender.com/admin |
 
 ---
