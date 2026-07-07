@@ -1,5 +1,3 @@
-const React = require("react");
-
 module.exports = {
   BrowserRouter: ({ children }) => children,
   Routes: ({ children }) => children,
