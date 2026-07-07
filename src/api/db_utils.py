@@ -2,6 +2,27 @@ from sqlalchemy import inspect, text
 
 from api.models import User
 
+_LEGACY_PG_RENAMES = (
+    ("user", "users"),
+    ("order", "orders"),
+)
+
+
+def ensure_postgres_legacy_renames(db) -> None:
+    """Rename reserved-word tables from older deployments (user → users, order → orders)."""
+
+    if db.engine.dialect.name != "postgresql":
+        return
+
+    inspector = inspect(db.engine)
+    tables = set(inspector.get_table_names())
+    with db.engine.begin() as conn:
+        for old_name, new_name in _LEGACY_PG_RENAMES:
+            if old_name in tables and new_name not in tables:
+                conn.execute(text(f'ALTER TABLE "{old_name}" RENAME TO "{new_name}"'))
+                tables.discard(old_name)
+                tables.add(new_name)
+
 
 def _users_table_sql(db):
     name = User.__tablename__

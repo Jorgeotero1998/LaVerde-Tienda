@@ -55,6 +55,19 @@ El orden correcto es:
 
 3. Registrar un usuario nuevo → confirmar que se guarda en la DB de Render
 
+4. Probar login con credenciales demo (seed automático en bootstrap):
+
+| Rol | Email | Password |
+|---|---|---|
+| Admin | `admin@laverde.com` | `admin1234` |
+| Cliente demo | `demo@laverde.com` | `Demo1234!` |
+
+5. Si auth falla con 500, forzar bootstrap: `POST https://laverde-backend.onrender.com/api/setup`
+   → Debe responder `{"status":"ok","products":N,"admin_ready":true}`
+
+6. Diagnóstico: `GET https://laverde-backend.onrender.com/api/diag`
+   → `database: connected`, `users >= 2`
+
 ---
 
 ## Nota sobre el plan free de Render

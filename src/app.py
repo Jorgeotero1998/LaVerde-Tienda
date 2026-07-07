@@ -12,7 +12,7 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-from api.bootstrap import bootstrap_database, normalize_database_url, safe_bootstrap
+from api.bootstrap import normalize_database_url, safe_bootstrap
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INSTANCE_DIR = os.path.join(ROOT_DIR, "instance")
