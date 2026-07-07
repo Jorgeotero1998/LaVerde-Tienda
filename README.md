@@ -192,13 +192,15 @@ Panel admin: [https://laverde-backend.onrender.com/admin](https://laverde-backen
 
 En el dashboard de Render, el servicio **laverde-backend** necesita:
 
-| Variable | Descripción |
-|---|---|
-| `DATABASE_URL` | URL interna de PostgreSQL de Render (Internal Database URL) |
-| `JWT_SECRET_KEY` | Cadena aleatoria de 32+ caracteres |
-| `FLASK_APP_KEY` | Cadena aleatoria para sesiones Flask |
+| Variable | Requerida | Descripción |
+|---|---|---|
+| `DATABASE_URL` | **Recomendada** | Internal Database URL de PostgreSQL en Render. Sin esto usa SQLite efímero (se resetea al reiniciar). |
+| `JWT_SECRET_KEY` | Sí (default en render.yaml) | Secreto JWT — cambiar en producción |
+| `FLASK_APP_KEY` | Sí (default en render.yaml) | Secreto de sesión Flask |
+| `CORS_ORIGINS` | Auto | Ya configurado en `render.yaml` |
+| `REACT_APP_BACKEND_URL` | Auto (frontend) | `https://laverde-backend.onrender.com` |
 
-`CORS_ORIGINS` y `REACT_APP_BACKEND_URL` ya están en `render.yaml`. Sin `DATABASE_URL` con SSL, login y registro devuelven error 500.
+**Causa típica de login 500:** PostgreSQL sin SSL, tablas `user`/`order` (palabras reservadas), o `DATABASE_URL` inválida. El backend ahora usa tablas `users`/`orders`, SSL automático, y bootstrap en cada arranque.
 
 ---
 

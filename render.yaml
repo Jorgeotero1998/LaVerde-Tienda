@@ -8,10 +8,8 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
-      FLASK_APP=src/app.py PYTHONPATH=src flask db upgrade || echo "db upgrade skipped (app self-heals at boot)"
-      FLASK_APP=src/app.py PYTHONPATH=src flask insert-test-data || echo "seed skipped (app self-heals at boot)"
     startCommand: PYTHONPATH=src gunicorn "src.app:app" --bind 0.0.0.0:$PORT --workers 2 --timeout 120
-    healthCheckPath: /health
+    healthCheckPath: /api/hello
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -24,9 +22,9 @@ services:
       - key: PYTHONPATH
         value: src
       - key: JWT_SECRET_KEY
-        sync: false
+        value: laverde-jwt-production-secret-32chars-min
       - key: FLASK_APP_KEY
-        sync: false
+        value: laverde-flask-production-secret-key
       - key: CORS_ORIGINS
         value: https://laverde-frontend.onrender.com,http://localhost:3000,http://127.0.0.1:3000
       - key: CLOUDINARY_CLOUD_NAME

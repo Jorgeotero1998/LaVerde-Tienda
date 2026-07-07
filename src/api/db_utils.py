@@ -1,20 +1,26 @@
 from sqlalchemy import inspect, text
 
+from api.models import User
 
-def _user_table_sql(db):
-    """Quote reserved table name on PostgreSQL."""
+
+def _users_table_sql(db):
+    name = User.__tablename__
     if db.engine.dialect.name == "postgresql":
-        return '"user"'
-    return "user"
+        return f'"{name}"'
+    return name
 
 
 def ensure_user_admin_column(db):
+    table_name = User.__tablename__
     inspector = inspect(db.engine)
-    if "user" not in inspector.get_table_names():
+    tables = inspector.get_table_names()
+    if table_name not in tables and "user" in tables:
+        table_name = "user"
+    if table_name not in tables:
         return
-    columns = {col["name"] for col in inspector.get_columns("user")}
+    columns = {col["name"] for col in inspector.get_columns(table_name)}
     if "is_admin" not in columns:
-        table = _user_table_sql(db)
+        table = f'"{table_name}"' if db.engine.dialect.name == "postgresql" else table_name
         default = "FALSE" if db.engine.dialect.name == "postgresql" else "0"
         with db.engine.begin() as conn:
             conn.execute(
@@ -22,10 +28,10 @@ def ensure_user_admin_column(db):
             )
 
 
-def _upsert_user(db, User, *, email, password, first_name, last_name, is_admin=False):
-    user = User.query.filter_by(email=email).first()
+def _upsert_user(db, UserModel, *, email, password, first_name, last_name, is_admin=False):
+    user = UserModel.query.filter_by(email=email).first()
     if not user:
-        user = User(
+        user = UserModel(
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -41,10 +47,10 @@ def _upsert_user(db, User, *, email, password, first_name, last_name, is_admin=F
     return False
 
 
-def ensure_admin_user(db, User):
+def ensure_admin_user(db, UserModel):
     created = _upsert_user(
         db,
-        User,
+        UserModel,
         email="admin@laverde.com",
         password="admin1234",
         first_name="Admin",
@@ -53,15 +59,14 @@ def ensure_admin_user(db, User):
     )
     db.session.commit()
     if created:
-        logger_msg = "  -> Admin demo: admin@laverde.com / admin1234"
-        print(logger_msg)
+        print("  -> Admin demo: admin@laverde.com / admin1234")
 
 
-def ensure_demo_users(db, User):
+def ensure_demo_users(db, UserModel):
     """Client demo account for live QA (idempotent)."""
     _upsert_user(
         db,
-        User,
+        UserModel,
         email="demo@laverde.com",
         password="Demo1234!",
         first_name="Cliente",

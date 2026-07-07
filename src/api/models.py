@@ -8,7 +8,7 @@ db: Any = SQLAlchemy()
 
 
 class User(db.Model):
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(120), nullable=False)
@@ -74,7 +74,7 @@ class Favorite(db.Model):
     __tablename__ = "favorite"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
     product = db.relationship("Product")
 
@@ -90,7 +90,7 @@ class CartItem(db.Model):
     __tablename__ = "cart_item"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
     product = db.relationship("Product")
@@ -105,10 +105,10 @@ class CartItem(db.Model):
 
 
 class Order(db.Model):
-    __tablename__ = "order"
+    __tablename__ = "orders"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     total = db.Column(db.Float, nullable=False, default=0)
     status = db.Column(db.String(50), nullable=False, default="pending")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -129,7 +129,7 @@ class OrderItem(db.Model):
     __tablename__ = "order_item"
 
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey("order.id"), nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     unit_price = db.Column(db.Float, nullable=False)

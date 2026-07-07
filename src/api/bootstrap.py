@@ -12,18 +12,6 @@ def normalize_database_url(url: str) -> str:
     return url
 
 
-def run_migrations(app):
-    try:
-        from flask_migrate import upgrade
-
-        upgrade()
-        logger.info("Alembic migrations applied")
-        return True
-    except Exception as exc:
-        logger.warning("Migration upgrade skipped: %s", exc)
-        return False
-
-
 def bootstrap_database(app, db):
     """Create schema, demo users, and product catalog. Safe to call on every boot."""
     from api.catalog_seed import ensure_catalog
@@ -32,7 +20,6 @@ def bootstrap_database(app, db):
 
     with app.app_context():
         db.create_all()
-        run_migrations(app)
         ensure_user_admin_column(db)
         ensure_admin_user(db, User)
         ensure_demo_users(db, User)

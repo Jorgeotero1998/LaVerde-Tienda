@@ -5,6 +5,8 @@ import cloudinary
 import cloudinary.uploader
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
 from api.models import db, User, Product, Favorite, CartItem, Order, OrderItem
 from api.auth_utils import admin_required
@@ -107,6 +109,36 @@ def hello():
     return jsonify({"message": "Backend conectado correctamente"}), 200
 
 
+@api.route("/diag", methods=["GET"])
+def diag():
+    """Diagnostics for Render — DB connectivity and bootstrap state."""
+    from flask import current_app
+
+    db_url = current_app.config.get("SQLALCHEMY_DATABASE_URI", "")
+    masked = db_url.split("@")[-1] if "@" in db_url else ("sqlite" if "sqlite" in db_url else "unknown")
+    db_ok = False
+    db_error = None
+    product_count = 0
+    user_count = 0
+    try:
+        db.session.execute(text("SELECT 1"))
+        db_ok = True
+        product_count = Product.query.count()
+        user_count = User.query.count()
+    except Exception as exc:
+        db_error = str(exc)
+    return jsonify(
+        {
+            "database": "connected" if db_ok else "unavailable",
+            "db_host": masked,
+            "bootstrapped": _bootstrapped,
+            "products": product_count,
+            "users": user_count,
+            "error": db_error,
+        }
+    ), 200 if db_ok else 503
+
+
 def send_welcome_email(email):
     return requests.post(
         f"https://api.mailgun.net/v3/{os.getenv('MAILGUN_DOMAIN')}/messages",
@@ -127,19 +159,23 @@ def git_signup():
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
-    if User.query.filter_by(email=body["email"]).first():
-        return jsonify({"error": "Ya existe una cuenta con ese email"}), 409
-    user = User(
-        first_name=body.get("firstName", ""),
-        last_name=body.get("lastName", ""),
-        email=body["email"],
-        is_active=True,
-        is_admin=False,
-    )
-    user.set_password(body["password"])
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({"message": "Cuenta creada con éxito"}), 201
+    try:
+        if User.query.filter_by(email=body["email"]).first():
+            return jsonify({"error": "Ya existe una cuenta con ese email"}), 409
+        user = User(
+            first_name=body.get("firstName", ""),
+            last_name=body.get("lastName", ""),
+            email=body["email"],
+            is_active=True,
+            is_admin=False,
+        )
+        user.set_password(body["password"])
+        db.session.add(user)
+        db.session.commit()
+        return jsonify({"message": "Cuenta creada con éxito"}), 201
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        return jsonify({"error": "Error de base de datos al registrar", "detail": str(exc)}), 503
 
 
 @api.route("/forgot-password", methods=["POST"])
@@ -164,11 +200,14 @@ def login():
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
-    user = User.query.filter_by(email=body["email"]).first()
-    if not user or not user.check_password(body["password"]):
-        return jsonify({"error": "Email o contraseña incorrectos"}), 401
-    token = create_access_token(identity=str(user.id))
-    return jsonify({"token": token, "user": user.serialize()}), 200
+    try:
+        user = User.query.filter_by(email=body["email"]).first()
+        if not user or not user.check_password(body["password"]):
+            return jsonify({"error": "Email o contraseña incorrectos"}), 401
+        token = create_access_token(identity=str(user.id))
+        return jsonify({"token": token, "user": user.serialize()}), 200
+    except SQLAlchemyError as exc:
+        return jsonify({"error": "Error de base de datos al iniciar sesión", "detail": str(exc)}), 503
 
 
 # --- USUARIO -------------------------------------------------------------------
