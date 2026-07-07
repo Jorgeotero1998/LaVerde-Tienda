@@ -1,15 +1,15 @@
 /**
- * La Verde — Botanical Luxury Typography
- * Display: Cormorant Garamond · Body: DM Sans
+ * La Verde — Startup Luxury Typography
+ * Display: Fraunces · Body: Plus Jakarta Sans
  */
 
 :root {
-    --font-display: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
-    --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    --font-body: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
 
-    --type-display: clamp(2.75rem, 5vw + 1rem, 4.25rem);
-    --type-h1: clamp(2rem, 3vw + 0.75rem, 2.75rem);
-    --type-h2: clamp(1.625rem, 2vw + 0.5rem, 2rem);
+    --type-display: clamp(2.75rem, 5vw + 1rem, 4.5rem);
+    --type-h1: clamp(2.25rem, 3.5vw + 0.5rem, 3.25rem);
+    --type-h2: clamp(1.75rem, 2vw + 0.5rem, 2.25rem);
     --type-h3: clamp(1.25rem, 1.2vw + 0.5rem, 1.5rem);
     --type-h4: 1.125rem;
     --type-body: 1rem;
@@ -30,7 +30,7 @@
     --weight-bold: 700;
 
     --leading-display: 1.05;
-    --leading-heading: 1.15;
+    --leading-heading: 1.12;
     --leading-tight: 1.2;
     --leading-body: 1.65;
     --leading-caption: 1.45;
@@ -54,9 +54,6 @@ html,
     letter-spacing: var(--tracking-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings:
-        "kern" 1,
-        "liga" 1;
 }
 
 h1,
@@ -112,7 +109,7 @@ h4,
     line-height: var(--leading-caption);
     letter-spacing: var(--tracking-overline);
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: var(--color-gold);
 }
 
 .type-price {
@@ -122,7 +119,7 @@ h4,
     line-height: 1;
     letter-spacing: var(--tracking-heading);
     font-variant-numeric: tabular-nums;
-    color: var(--color-accent-soft);
+    color: var(--color-forest);
 }
 
 .type-badge {

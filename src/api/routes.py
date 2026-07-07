@@ -8,8 +8,60 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 
 from api.models import db, User, Product, Favorite, CartItem, Order, OrderItem
 from api.auth_utils import admin_required
+from api.bootstrap import bootstrap_database
 
 api = Blueprint("api", __name__)
+
+_bootstrapped = False
+
+
+def _ensure_db_ready():
+    """Lazy bootstrap if startup seed failed (Render cold start / PG recovery)."""
+    global _bootstrapped
+    if _bootstrapped:
+        return None
+    try:
+        from flask import current_app
+
+        bootstrap_database(current_app._get_current_object(), db)
+        _bootstrapped = True
+        return None
+    except Exception as exc:
+        from flask import current_app
+
+        current_app.logger.error("Lazy bootstrap failed: %s", exc, exc_info=True)
+        return str(exc)
+
+
+def _db_error_response(detail=None):
+    return jsonify(
+        {
+            "error": "Base de datos iniciando. Esperá unos segundos y reintentá.",
+            "detail": detail,
+        }
+    ), 503
+
+
+@api.route("/setup", methods=["GET", "POST"])
+def setup_database():
+    """Manual recovery: (re)create schema, demo users, and catalog."""
+    try:
+        from flask import current_app
+
+        bootstrap_database(current_app._get_current_object(), db)
+        global _bootstrapped
+        _bootstrapped = True
+        product_count = Product.query.count()
+        admin = User.query.filter_by(email="admin@laverde.com").first()
+        return jsonify(
+            {
+                "status": "ok",
+                "products": product_count,
+                "admin_ready": bool(admin),
+            }
+        ), 200
+    except Exception as exc:
+        return jsonify({"status": "error", "message": str(exc)}), 500
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
@@ -70,6 +122,8 @@ def send_welcome_email(email):
 
 @api.route("/signup", methods=["POST"])
 def git_signup():
+    if err := _ensure_db_ready():
+        return _db_error_response(err)
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
@@ -105,6 +159,8 @@ def forgot_password():
 
 @api.route("/login", methods=["POST"])
 def login():
+    if err := _ensure_db_ready():
+        return _db_error_response(err)
     body = request.get_json()
     if not body or not body.get("email") or not body.get("password"):
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
@@ -177,6 +233,8 @@ def upload_image():
 
 @api.route("/products", methods=["GET"])
 def get_products():
+    if err := _ensure_db_ready():
+        return _db_error_response(err)
     category = request.args.get("category")
     query = Product.query.filter_by(is_active=True)
     if category:

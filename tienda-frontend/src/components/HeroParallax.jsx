@@ -58,8 +58,8 @@ const HeroParallax = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
-          Frescura directa
-          <span className="hero-parallax__title-accent"> a tu hogar</span>
+          Del campo
+          <span className="hero-parallax__title-accent"> a tu mesa</span>
         </motion.h1>
 
         <motion.p
@@ -68,8 +68,8 @@ const HeroParallax = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
         >
-          Productos orgánicos de temporada, seleccionados del productor. Experiencia de compra
-          premium con carrito inteligente y checkout seguro.
+          Frutas y verduras de temporada, curadas como en un mercado boutique. Comprá, guardá favoritos
+          y recibí en el día con checkout seguro.
         </motion.p>
 
         <motion.div

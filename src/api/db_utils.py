@@ -63,7 +63,7 @@ def ensure_demo_users(db, User):
         db,
         User,
         email="demo@laverde.com",
-        password="demo1234",
+        password="Demo1234!",
         first_name="Cliente",
         last_name="Demo",
         is_admin=False,

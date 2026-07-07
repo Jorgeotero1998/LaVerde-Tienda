@@ -181,12 +181,24 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 
 | Rol | Email | Contraseña |
 |---|---|---|
+| Cliente | demo@laverde.com | Demo1234! |
 | Admin | admin@laverde.com | admin1234 |
-| Cliente | demo@laverde.com | demo1234 |
 
 Panel admin: [https://laverde-backend.onrender.com/admin](https://laverde-backend.onrender.com/admin)
 
-> Las cuentas demo se recrean automáticamente al arrancar el backend en Render.
+> Las cuentas se recrean automáticamente al arrancar el backend en Render.
+
+## ⚙️ Render — variables de entorno obligatorias
+
+En el dashboard de Render, el servicio **laverde-backend** necesita:
+
+| Variable | Descripción |
+|---|---|
+| `DATABASE_URL` | URL interna de PostgreSQL de Render (Internal Database URL) |
+| `JWT_SECRET_KEY` | Cadena aleatoria de 32+ caracteres |
+| `FLASK_APP_KEY` | Cadena aleatoria para sesiones Flask |
+
+`CORS_ORIGINS` y `REACT_APP_BACKEND_URL` ya están en `render.yaml`. Sin `DATABASE_URL` con SSL, login y registro devuelven error 500.
 
 ---
 

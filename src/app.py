@@ -12,7 +12,7 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-from api.bootstrap import bootstrap_database, normalize_database_url
+from api.bootstrap import bootstrap_database, normalize_database_url, safe_bootstrap
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INSTANCE_DIR = os.path.join(ROOT_DIR, "instance")
@@ -23,6 +23,10 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 _db_url = normalize_database_url(os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB}"))
 app.config["SQLALCHEMY_DATABASE_URI"] = _db_url
+_engine_opts: dict = {"pool_pre_ping": True, "pool_recycle": 280}
+if _db_url.startswith("postgresql"):
+    _engine_opts["connect_args"] = {"sslmode": "require"}
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = _engine_opts
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "la-verde-jwt-secret-dev")
 app.config["SECRET_KEY"] = os.getenv("FLASK_APP_KEY", "la-verde-flask-secret-dev")
@@ -51,10 +55,7 @@ def _bootstrap_database():
     """Ensure schema, demo users, and catalog exist at boot (Render-safe)."""
     if os.getenv("DISABLE_DB_BOOTSTRAP") == "1":
         return
-    try:
-        bootstrap_database(app, db)
-    except Exception as exc:  # pragma: no cover - defensive, never crash boot
-        app.logger.error("Database bootstrap failed: %s", exc, exc_info=True)
+    safe_bootstrap(app, db)
 
 
 _bootstrap_database()

@@ -1,65 +1,72 @@
-/* La Verde — Botanical Luxury Design System */
+/* La Verde — Botanical Luxury Startup Design System */
 :root {
-    /* Core palette */
-    --color-primary: #2d6a4f;
-    --color-primary-hover: #40916c;
-    --color-primary-deep: #1b4332;
-    --color-secondary: #a8b5a0;
-    --color-accent: #d4a853;
-    --color-accent-soft: #e8c875;
-    --color-cream: #f5f0e6;
-    --color-cream-muted: #ede8dc;
+    /* Botanical luxury — light editorial */
+    --color-forest: #0d1f17;
+    --color-forest-mid: #1a3d2e;
+    --color-cream: #f5f0e8;
+    --color-cream-muted: #ede8df;
+    --color-gold: #c9a962;
+    --color-gold-soft: #dfc88a;
+    --color-sage: #7a9e7e;
+    --color-sage-light: #a8c4ab;
 
-    --color-bg: #141814;
-    --color-bg-mid: #1a1f1c;
-    --color-bg-gradient: radial-gradient(
-        ellipse 130% 90% at 50% -30%,
-        rgba(45, 106, 79, 0.22) 0%,
-        #1a1f1c 42%,
-        #141814 100%
+    --color-primary: var(--color-forest);
+    --color-primary-hover: var(--color-forest-mid);
+    --color-primary-deep: #081510;
+    --color-secondary: var(--color-sage);
+    --color-accent: var(--color-gold);
+    --color-accent-soft: var(--color-gold-soft);
+
+    --color-bg: var(--color-cream);
+    --color-bg-mid: var(--color-cream-muted);
+    --color-bg-gradient: linear-gradient(
+        165deg,
+        #f5f0e8 0%,
+        #f0ebe3 40%,
+        #e8e2d8 100%
     );
 
-    --color-brand: var(--color-primary);
-    --color-brand-hover: var(--color-primary-hover);
+    --color-brand: var(--color-forest);
+    --color-brand-hover: var(--color-forest-mid);
     --color-brand-deep: var(--color-primary-deep);
-    --color-brand-bright: var(--color-accent-soft);
-    --color-brand-muted: var(--color-secondary);
+    --color-brand-bright: var(--color-gold);
+    --color-brand-muted: var(--color-sage);
 
-    --color-panel: rgba(30, 36, 32, 0.72);
-    --color-panel-solid: #1e2420;
-    --color-panel-hover: rgba(38, 46, 41, 0.92);
-    --color-panel-border: rgba(245, 240, 230, 0.08);
-    --color-panel-border-hover: rgba(212, 168, 83, 0.35);
+    --color-panel: rgba(255, 255, 255, 0.82);
+    --color-panel-solid: #ffffff;
+    --color-panel-hover: rgba(255, 255, 255, 0.95);
+    --color-panel-border: rgba(13, 31, 23, 0.1);
+    --color-panel-border-hover: rgba(201, 169, 98, 0.45);
 
-    --color-text: var(--color-cream);
-    --color-text-muted: #b8c4b4;
-    --color-text-subtle: #7a8478;
-    --color-text-inverse: #141814;
-    --color-danger: #e07a7a;
-    --color-danger-bg: rgba(224, 122, 122, 0.14);
-    --color-success: var(--color-primary-hover);
-    --color-success-bg: rgba(64, 145, 108, 0.14);
+    --color-text: var(--color-forest);
+    --color-text-muted: #4a6358;
+    --color-text-subtle: var(--color-sage);
+    --color-text-inverse: var(--color-cream);
+    --color-danger: #c45c5c;
+    --color-danger-bg: rgba(196, 92, 92, 0.1);
+    --color-success: var(--color-forest-mid);
+    --color-success-bg: rgba(122, 158, 126, 0.15);
 
-    --accent: var(--color-accent);
+    --accent: var(--color-gold);
     --text: var(--color-text);
     --text-muted: var(--color-text-muted);
     --surface: transparent;
-    --surface-2: rgba(30, 36, 32, 0.55);
+    --surface-2: rgba(255, 255, 255, 0.6);
 
-    --gradient-accent: linear-gradient(135deg, #1b4332 0%, #2d6a4f 45%, #40916c 100%);
-    --gradient-accent-hover: linear-gradient(135deg, #2d6a4f 0%, #40916c 50%, #52b788 100%);
-    --gradient-gold: linear-gradient(135deg, #b8892a 0%, #d4a853 50%, #e8c875 100%);
+    --gradient-accent: linear-gradient(135deg, #0d1f17 0%, #1a3d2e 50%, #2d5a45 100%);
+    --gradient-accent-hover: linear-gradient(135deg, #1a3d2e 0%, #2d5a45 55%, #3d6b55 100%);
+    --gradient-gold: linear-gradient(135deg, #a88942 0%, #c9a962 50%, #dfc88a 100%);
     --gradient-hero-overlay: linear-gradient(
-        115deg,
-        rgba(20, 24, 20, 0.94) 0%,
-        rgba(27, 67, 50, 0.55) 48%,
-        rgba(20, 24, 20, 0.4) 100%
+        125deg,
+        rgba(245, 240, 232, 0.92) 0%,
+        rgba(245, 240, 232, 0.75) 45%,
+        rgba(232, 226, 216, 0.55) 100%
     );
-    --gradient-glow: radial-gradient(circle, rgba(212, 168, 83, 0.18) 0%, transparent 68%);
+    --gradient-glow: radial-gradient(circle, rgba(201, 169, 98, 0.22) 0%, transparent 68%);
     --gradient-glass: linear-gradient(
         145deg,
-        rgba(245, 240, 230, 0.09) 0%,
-        rgba(30, 36, 32, 0.45) 100%
+        rgba(255, 255, 255, 0.88) 0%,
+        rgba(245, 240, 232, 0.65) 100%
     );
 
     --space-1: 8px;
@@ -74,23 +81,23 @@
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 20px;
+    --radius-xl: 24px;
     --radius-pill: 9999px;
 
-    --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.35);
-    --shadow-sm: 0 8px 28px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 16px 48px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.55);
-    --shadow-glow: 0 0 48px rgba(212, 168, 83, 0.14);
-    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --shadow-xs: 0 1px 4px rgba(13, 31, 23, 0.06);
+    --shadow-sm: 0 8px 28px rgba(13, 31, 23, 0.08);
+    --shadow-md: 0 16px 48px rgba(13, 31, 23, 0.1);
+    --shadow-lg: 0 24px 56px rgba(13, 31, 23, 0.12);
+    --shadow-glow: 0 0 48px rgba(201, 169, 98, 0.18);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
-    --font-display: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
-    --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --text-h1: clamp(2rem, 3vw + 0.75rem, 2.75rem);
-    --text-h2: clamp(1.625rem, 2vw + 0.5rem, 2rem);
+    --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    --font-body: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+    --text-h1: clamp(2.25rem, 3.5vw + 0.5rem, 3.25rem);
+    --text-h2: clamp(1.75rem, 2vw + 0.5rem, 2.25rem);
     --text-body: 1rem;
     --text-small: 0.875rem;
-    --leading-tight: 1.15;
+    --leading-tight: 1.12;
     --leading-body: 1.65;
 
     --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -109,9 +116,9 @@
         background-color var(--duration-base) var(--ease-out),
         filter var(--duration-drawer) var(--ease-out);
 
-    --grid-product-min: 240px;
-    --nav-height: 72px;
-    --hero-image: url("https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=1920&q=80");
+    --grid-product-min: 260px;
+    --nav-height: 76px;
+    --hero-image: url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1920&q=80");
 }
 
 *,
@@ -482,7 +489,7 @@ main {
     border-radius: var(--radius-md);
     border: 1px solid var(--color-panel-border);
     padding: 12px 16px;
-    background: rgba(4, 13, 6, 0.55);
+    background: var(--color-panel-solid);
     color: var(--color-text);
     font-family: var(--font-body);
     transition: var(--transition-interactive);
@@ -490,9 +497,9 @@ main {
 
 .form-control-dark:focus,
 .auth-input:focus {
-    border-color: var(--color-brand-bright);
-    background: rgba(4, 13, 6, 0.8);
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+    border-color: var(--color-gold);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.2);
     outline: none;
 }
 
@@ -519,7 +526,7 @@ main {
     padding-left: 44px;
     height: 46px;
     border-radius: var(--radius-pill);
-    background: rgba(4, 13, 6, 0.5);
+    background: rgba(255, 255, 255, 0.75);
 }
 
 /* ─── Qty control ─── */
@@ -599,7 +606,7 @@ main {
 }
 
 .price-tag {
-    color: var(--color-accent-soft);
+    color: var(--color-gold);
     font-weight: var(--weight-bold);
     font-size: var(--type-price);
     font-variant-numeric: tabular-nums;
@@ -607,7 +614,7 @@ main {
 }
 
 .fav-btn {
-    background: rgba(4, 13, 6, 0.75);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(8px);
     border: 1px solid var(--color-panel-border);
     cursor: pointer;
@@ -632,11 +639,11 @@ main {
     background: var(--color-danger-bg);
 }
 
-/* ─── Navbar dark glass ─── */
+/* ─── Navbar — cream glass editorial ─── */
 .navbar-verde {
-    background: rgba(20, 24, 20, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--color-panel-border);
     padding: var(--space-2) 0;
     box-shadow: var(--shadow-xs);
@@ -647,7 +654,7 @@ main {
 }
 
 body.is-scrolled .navbar-verde {
-    background: rgba(20, 24, 20, 0.96);
+    background: rgba(255, 255, 255, 0.96);
     box-shadow: var(--shadow-sm);
 }
 
@@ -683,7 +690,7 @@ body.is-scrolled .navbar-verde {
     font-weight: var(--weight-semibold);
     font-size: 1.5rem;
     letter-spacing: var(--tracking-heading);
-    color: var(--color-cream);
+    color: var(--color-forest);
     margin: 0;
     padding: 0;
 }
@@ -715,13 +722,13 @@ body.is-scrolled .navbar-verde {
 }
 
 .nav-link-custom:hover {
-    color: var(--color-cream);
-    background: rgba(212, 168, 83, 0.08);
+    color: var(--color-forest);
+    background: rgba(201, 169, 98, 0.12);
 }
 
 .nav-link-custom.is-active {
-    color: var(--color-accent-soft);
-    background: rgba(212, 168, 83, 0.12);
+    color: var(--color-forest);
+    background: rgba(201, 169, 98, 0.18);
     font-weight: var(--weight-semibold);
 }
 
@@ -846,7 +853,7 @@ body.cart-drawer-open .navbar-verde {
     position: fixed;
     inset: 0;
     z-index: 1040;
-    background: rgba(20, 24, 20, 0.72);
+    background: rgba(13, 31, 23, 0.35);
 }
 
 .cart-drawer {
@@ -1232,7 +1239,7 @@ body.cart-drawer-open .navbar-verde {
 .product-card__media {
     position: relative;
     overflow: hidden;
-    background: rgba(4, 13, 6, 0.5);
+    background: var(--color-cream-muted);
     aspect-ratio: 4 / 3;
 }
 
@@ -2008,10 +2015,10 @@ body.cart-drawer-open .navbar-verde {
 }
 
 .glass-panel--drawer {
-    background: rgba(20, 24, 20, 0.94);
+    background: rgba(255, 255, 255, 0.97);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border-left: 1px solid var(--color-panel-border-hover);
+    border-left: 1px solid var(--color-panel-border);
 }
 
 .product-card--tilt {
@@ -2079,15 +2086,16 @@ body.cart-drawer-open .navbar-verde {
     inset: 0;
     background:
         var(--gradient-hero-overlay),
-        radial-gradient(circle at 20% 80%, rgba(45, 106, 79, 0.25), transparent 45%),
-        linear-gradient(180deg, rgba(20, 24, 20, 0.2) 0%, rgba(20, 24, 20, 0.85) 100%);
+        radial-gradient(circle at 85% 15%, rgba(122, 158, 126, 0.2), transparent 50%),
+        url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&q=80") center / cover
+            no-repeat;
 }
 
 .hero-parallax__content {
     position: relative;
     z-index: 2;
     padding: var(--space-7) var(--space-2) var(--space-6);
-    max-width: 680px;
+    max-width: 720px;
 }
 
 .hero-parallax__eyebrow {
@@ -2097,7 +2105,7 @@ body.cart-drawer-open .navbar-verde {
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-overline);
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: var(--color-sage);
     margin-bottom: var(--space-2);
 }
 
@@ -2107,13 +2115,12 @@ body.cart-drawer-open .navbar-verde {
     font-weight: var(--weight-semibold);
     line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
-    color: var(--color-cream);
+    color: var(--color-forest);
     margin: 0 0 var(--space-3);
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 }
 
 .hero-parallax__title-accent {
-    color: var(--color-accent-soft);
+    color: var(--color-gold);
     font-style: italic;
 }
 

@@ -17,7 +17,7 @@ const SyncBanner = () => {
     return (
       <div className="sync-banner sync-banner--offline" role="status">
         <i className="fas fa-cloud me-2" aria-hidden="true"></i>
-        Modo demo — el backend está despertando. Los productos se muestran desde caché local.
+        Conectando con el servidor… Mostrando catálogo guardado mientras despierta.
       </div>
     );
   }

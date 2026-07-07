@@ -18,7 +18,7 @@ def setup_commands(app):
         bootstrap_database(app, db)
         click.echo(
             f"Bootstrap listo: {len(LA_VERDE_CATALOG)} productos, "
-            "admin@laverde.com / admin1234, demo@laverde.com / demo1234"
+            "admin@laverde.com / admin1234, demo@laverde.com / Demo1234!"
         )
 
     @app.cli.command("reset-catalog")

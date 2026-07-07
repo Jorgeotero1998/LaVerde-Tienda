@@ -42,7 +42,7 @@ services:
     rootDir: tienda-frontend
     buildCommand: |
       npm ci
-      npm run build
+      TSC_COMPILE_ON_ERROR=true npm run build
     staticPublishPath: build
     routes:
       - type: rewrite

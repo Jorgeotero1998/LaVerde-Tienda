@@ -101,9 +101,9 @@ const Login = () => {
       </p>
 
       <div className="ui-demo-hint">
-        Admin: <strong>admin@laverde.com</strong> / <strong>admin1234</strong>
+        Cliente: <strong>demo@laverde.com</strong> / <strong>Demo1234!</strong>
         <br />
-        Cliente demo: <strong>demo@laverde.com</strong> / <strong>demo1234</strong>
+        Admin: <strong>admin@laverde.com</strong> / <strong>admin1234</strong>
       </div>
     </AuthLayout>
   );
