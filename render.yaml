@@ -28,7 +28,7 @@ services:
       - key: FLASK_APP_KEY
         sync: false
       - key: CORS_ORIGINS
-        sync: false
+        value: https://laverde-frontend.onrender.com,http://localhost:3000,http://127.0.0.1:3000
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY

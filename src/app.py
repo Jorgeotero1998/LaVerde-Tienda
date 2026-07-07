@@ -12,6 +12,7 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from api.bootstrap import bootstrap_database, normalize_database_url
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INSTANCE_DIR = os.path.join(ROOT_DIR, "instance")
@@ -20,7 +21,8 @@ DEFAULT_DB = os.path.join(INSTANCE_DIR, "laverde.db").replace("\\", "/")
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB}")
+_db_url = normalize_database_url(os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB}"))
+app.config["SQLALCHEMY_DATABASE_URI"] = _db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "la-verde-jwt-secret-dev")
 app.config["SECRET_KEY"] = os.getenv("FLASK_APP_KEY", "la-verde-flask-secret-dev")
@@ -29,11 +31,16 @@ db.init_app(app)
 migrate = Migrate(app, db)
 JWTManager(app)
 
-_cors_raw = os.getenv("CORS_ORIGINS", "*")
+_default_cors = "https://laverde-frontend.onrender.com,http://localhost:3000,http://127.0.0.1:3000"
+_cors_raw = os.getenv("CORS_ORIGINS", _default_cors)
 _cors_origins: list[str] | str = (
     "*" if _cors_raw.strip() == "*" else [o.strip() for o in _cors_raw.split(",") if o.strip()]
 )
-CORS(app, resources={r"/api/*": {"origins": _cors_origins}})
+CORS(
+    app,
+    resources={r"/api/*": {"origins": _cors_origins}},
+    supports_credentials=True,
+)
 
 setup_admin(app)
 setup_commands(app)
@@ -41,30 +48,20 @@ app.register_blueprint(api, url_prefix="/api")
 
 
 def _bootstrap_database():
-    """Ensure the schema and demo catalog exist at boot.
-
-    Render's free tier uses an ephemeral filesystem, so a SQLite database can
-    be reset between cold starts. This keeps the public demo functional by
-    (re)creating tables and seeding the product catalog idempotently. It never
-    raises, so a transient DB issue cannot take the whole app down.
-    """
+    """Ensure schema, demo users, and catalog exist at boot (Render-safe)."""
     if os.getenv("DISABLE_DB_BOOTSTRAP") == "1":
         return
     try:
-        from api.catalog_seed import ensure_catalog
-        from api.models import Product
-
-        with app.app_context():
-            db.create_all()
-            ensure_catalog(db, Product)
+        bootstrap_database(app, db)
     except Exception as exc:  # pragma: no cover - defensive, never crash boot
-        app.logger.warning("Database bootstrap skipped: %s", exc)
+        app.logger.error("Database bootstrap failed: %s", exc, exc_info=True)
 
 
 _bootstrap_database()
 
 
 @app.route("/health")
+@app.route("/api/health")
 def health():
     db_ok = True
     try:

@@ -1,23 +1,24 @@
 import click
+from api.bootstrap import bootstrap_database
+from api.catalog_seed import LA_VERDE_CATALOG
 from api.models import db, Product
-from api.catalog_seed import ensure_catalog, LA_VERDE_CATALOG
 
 
 def setup_commands(app):
     @app.cli.command("init-db")
     def init_db():
         """Crea todas las tablas según los modelos actuales."""
-        db.create_all()
-        click.echo("Base de datos inicializada.")
+        bootstrap_database(app, db)
+        click.echo("Base de datos inicializada con catálogo y usuarios demo.")
 
     @app.cli.command("insert-test-data")
     @click.argument("count", default=0, required=False)
     def insert_test_data(count):
-        """Sincroniza catálogo La Verde (productos + imágenes)."""
-        added, fixed = ensure_catalog(db, Product)
+        """Sincroniza catálogo La Verde + usuarios demo (admin/cliente)."""
+        bootstrap_database(app, db)
         click.echo(
-            f"Catálogo listo: {len(LA_VERDE_CATALOG)} referencias, "
-            f"+{added} nuevos, {fixed} imágenes reparadas."
+            f"Bootstrap listo: {len(LA_VERDE_CATALOG)} productos, "
+            "admin@laverde.com / admin1234, demo@laverde.com / demo1234"
         )
 
     @app.cli.command("reset-catalog")

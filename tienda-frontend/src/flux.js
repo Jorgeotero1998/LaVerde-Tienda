@@ -117,11 +117,17 @@ const getState = ({ getStore, getActions, setStore }) => ({
         });
         return true;
       } catch (err) {
-        const isNetwork = err.message === "Failed to fetch" || err.name === "TypeError";
+        const isNetwork =
+          err.message === "Failed to fetch" ||
+          err.name === "TypeError" ||
+          err.name === "AbortError";
+        const isServer = err.status >= 500;
         setStore({
           error: isNetwork
-            ? "No se pudo conectar al servidor. Ejecutá: python run_backend.py"
-            : err.data?.error || err.message || "No se pudo crear la cuenta.",
+            ? "El servidor está despertando. Esperá ~30s e intentá registrarte de nuevo."
+            : isServer
+              ? "Error del servidor al crear la cuenta. Reintentá en unos segundos."
+              : err.data?.error || err.message || "No se pudo crear la cuenta.",
         });
         return false;
       }
@@ -133,6 +139,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
           method: "POST",
           body: { email, password },
           token: null,
+          retries: 2,
         });
         localStorage.setItem("laverde_token", data.token);
         localStorage.setItem("laverde_user", JSON.stringify(data.user));
@@ -142,11 +149,17 @@ const getState = ({ getStore, getActions, setStore }) => ({
         await getActions().fetchFavorites();
         return true;
       } catch (err) {
-        const isNetwork = err.message === "Failed to fetch" || err.name === "TypeError";
+        const isNetwork =
+          err.message === "Failed to fetch" ||
+          err.name === "TypeError" ||
+          err.name === "AbortError";
+        const isServer = err.status >= 500;
         setStore({
           error: isNetwork
-            ? "No se pudo conectar al servidor. ¿Está corriendo el backend? (python run_backend.py en la raíz del proyecto)"
-            : err.data?.error || "Email o contraseña incorrectos.",
+            ? "El servidor está despertando (Render free tier). Esperá ~30s e intentá de nuevo."
+            : isServer
+              ? "Error del servidor al iniciar sesión. El backend puede estar reiniciando la base de datos — reintentá en unos segundos."
+              : err.data?.error || "Email o contraseña incorrectos.",
         });
         return false;
       }

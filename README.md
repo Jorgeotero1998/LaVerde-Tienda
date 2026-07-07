@@ -177,13 +177,16 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 
 ---
 
-## 👤 Usuario admin (demo)
+## 👤 Usuarios demo (live)
 
-| Campo | Valor |
-|---|---|
-| Email | admin@laverde.com |
-| Contraseña | admin1234 |
-| Panel admin | [https://laverde-backend.onrender.com/admin](https://laverde-backend.onrender.com/admin) |
+| Rol | Email | Contraseña |
+|---|---|---|
+| Admin | admin@laverde.com | admin1234 |
+| Cliente | demo@laverde.com | demo1234 |
+
+Panel admin: [https://laverde-backend.onrender.com/admin](https://laverde-backend.onrender.com/admin)
+
+> Las cuentas demo se recrean automáticamente al arrancar el backend en Render.
 
 ---
 

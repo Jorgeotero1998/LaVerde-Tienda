@@ -102,7 +102,8 @@ const Login = () => {
 
       <div className="ui-demo-hint">
         Admin: <strong>admin@laverde.com</strong> / <strong>admin1234</strong>
-        <br />O registrate en <strong>Registrate</strong> para cuenta de cliente.
+        <br />
+        Cliente demo: <strong>demo@laverde.com</strong> / <strong>demo1234</strong>
       </div>
     </AuthLayout>
   );
