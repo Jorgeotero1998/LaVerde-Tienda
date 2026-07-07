@@ -69,6 +69,15 @@ export const apiFetch = async (path, options = {}) => {
   return data;
 };
 
+/** Trigger DB bootstrap on Render after cold start (idempotent). */
+export const apiEnsureBackendReady = async () => {
+  try {
+    await fetch(getApiBase() + "/setup", { method: "POST" });
+  } catch {
+    /* best-effort */
+  }
+};
+
 /** Sube imagen a Cloudinary vía backend (requiere rol admin). */
 export const apiUploadImage = async (file) => {
   const token = getToken();

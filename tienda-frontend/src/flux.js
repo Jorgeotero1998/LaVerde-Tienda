@@ -1,4 +1,4 @@
-import { apiFetch, mapCartFromApi, mapFavoritesFromApi } from "./api/client";
+import { apiFetch, apiEnsureBackendReady, mapCartFromApi, mapFavoritesFromApi } from "./api/client";
 import { CATALOG_FALLBACK } from "./data/catalogFallback";
 
 const prodSample = CATALOG_FALLBACK;
@@ -105,12 +105,25 @@ const getState = ({ getStore, getActions, setStore }) => ({
         setStore({ error: "Todos los campos son obligatorios." });
         return false;
       }
-      try {
-        await apiFetch("/signup", {
+      const attemptSignup = async () =>
+        apiFetch("/signup", {
           method: "POST",
           body: { firstName, lastName, email, password },
           token: null,
         });
+
+      try {
+        try {
+          await attemptSignup();
+        } catch (err) {
+          if (err.status >= 500 || err.status === 503) {
+            await apiEnsureBackendReady();
+            await new Promise((r) => setTimeout(r, 1500));
+            await attemptSignup();
+          } else {
+            throw err;
+          }
+        }
         setStore({
           error: null,
           message: "Cuenta creada con éxito. ¡Ya podés iniciar sesión!",
@@ -134,13 +147,27 @@ const getState = ({ getStore, getActions, setStore }) => ({
     },
 
     login: async (email, password) => {
-      try {
-        const data = await apiFetch("/login", {
+      const attemptLogin = async () =>
+        apiFetch("/login", {
           method: "POST",
           body: { email, password },
           token: null,
           retries: 2,
         });
+
+      try {
+        let data;
+        try {
+          data = await attemptLogin();
+        } catch (err) {
+          if (err.status >= 500 || err.status === 503) {
+            await apiEnsureBackendReady();
+            await new Promise((r) => setTimeout(r, 1500));
+            data = await attemptLogin();
+          } else {
+            throw err;
+          }
+        }
         localStorage.setItem("laverde_token", data.token);
         localStorage.setItem("laverde_user", JSON.stringify(data.user));
         setStore({ token: data.token, user: data.user, error: null });

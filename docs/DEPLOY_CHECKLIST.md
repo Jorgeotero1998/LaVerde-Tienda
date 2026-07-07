@@ -37,8 +37,11 @@ Las dos URLs se conocen recién después de crear el Blueprint.
 El orden correcto es:
 1. Crear el Blueprint → Render genera las URLs
 2. Copiar la URL del backend → pegarla en `REACT_APP_BACKEND_URL` del frontend
-3. Copiar la URL del frontend → pegarla en `FRONTEND_URL` del backend
-4. Hacer "Manual Deploy" en ambos servicios para que tomen las variables
+3. Copiar la URL del frontend → pegarla en `CORS_ORIGINS` del backend (ya en render.yaml)
+4. En **laverde-backend → Environment**, setear `DATABASE_URL` = Internal Database URL de `laverde-db`
+5. Hacer **Manual Deploy** en **ambos** servicios (backend primero) tras cada push a `main`
+
+> Si `/api/diag` devuelve 404, el backend sigue en código viejo — forzá Manual Deploy en Render.
 
 ---
 
