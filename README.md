@@ -9,7 +9,15 @@
 [![Status](https://img.shields.io/badge/Status-Production-brightgreen)](https://laverde-frontend.onrender.com)
 [![Backend](https://img.shields.io/badge/API-laverde--backend.onrender.com-blue)](https://laverde-backend.onrender.com/api)
 
-Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.
+Full-stack grocery e-commerce (React + Flask + PostgreSQL) with product catalog, cart, checkout, JWT auth, and an admin panel. Built as the 4Geeks Academy capstone by a 3-person team, deployed to production on Render. · *Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.*
+
+<p align="center">
+  <a href="https://laverde-frontend.onrender.com/">
+    <img src="docs/screenshot.png" width="820" alt="LaVerde Tienda — live storefront screenshot"/>
+  </a>
+  <br/>
+  <sub><i>Live storefront — product catalog with category filters, cart, and checkout.</i></sub>
+</p>
 
 > **Note for recruiters:** Frontend and backend run on Render free tier — first load may take ~30–60s while services wake up. Catalog browsing works once loaded; signup/login need the backend awake.
 
@@ -163,6 +171,16 @@ REACT_APP_BACKEND_URL=http://127.0.0.1:3001
 ---
 
 ## 🌐 API — Endpoints principales
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| POST | `/api/signup` | Registro de usuario |
+| POST | `/api/login` | Login → devuelve JWT |
+| GET | `/api/products` | Catálogo de productos |
+| GET | `/api/cart` | Carrito (requiere JWT) |
+| POST | `/api/orders` | Confirmar pedido (requiere JWT) |
+| GET | `/api/favorites` | Favoritos (requiere JWT) |
+
 ---
 
 ## 📚 Documentación Completa
@@ -174,17 +192,6 @@ Para más detalles, consulta:
 - **[Entrega Profesional](docs/ENTREGA_FINAL.md)** — Checklist de calidad
 - **[User Stories](docs/USER_STORIES.md)** — Funcionalidades y casos de uso
 - **[API Audit](docs/RUTA_API_AUDIT.md)** — Endpoints documentados
-
----
-
-| Método | Ruta | Descripción |
-|---|---|---|
-| POST | `/api/signup` | Registro de usuario |
-| POST | `/api/login` | Login → devuelve JWT |
-| GET | `/api/products` | Catálogo de productos |
-| GET | `/api/cart` | Carrito (requiere JWT) |
-| POST | `/api/orders` | Confirmar pedido (requiere JWT) |
-| GET | `/api/favorites` | Favoritos (requiere JWT) |
 
 ## Tests
 ```bash
