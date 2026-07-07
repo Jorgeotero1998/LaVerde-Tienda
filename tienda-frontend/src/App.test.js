@@ -17,5 +17,5 @@ afterEach(() => {
 test("renders home hero title", () => {
   const AppWithContext = injectContext(App);
   render(<AppWithContext />);
-  expect(screen.getByRole("heading", { name: /frescura directa a tu hogar/i })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: /del campo/i })).toBeInTheDocument();
 });
