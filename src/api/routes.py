@@ -65,6 +65,7 @@ def setup_database():
     except Exception as exc:
         return jsonify({"status": "error", "message": str(exc)}), 500
 
+
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
     api_key=os.getenv("CLOUDINARY_API_KEY"),
@@ -115,7 +116,9 @@ def diag():
     from flask import current_app
 
     db_url = current_app.config.get("SQLALCHEMY_DATABASE_URI", "")
-    masked = db_url.split("@")[-1] if "@" in db_url else ("sqlite" if "sqlite" in db_url else "unknown")
+    masked = (
+        db_url.split("@")[-1] if "@" in db_url else ("sqlite" if "sqlite" in db_url else "unknown")
+    )
     db_ok = False
     db_error = None
     product_count = 0
@@ -207,7 +210,9 @@ def login():
         token = create_access_token(identity=str(user.id))
         return jsonify({"token": token, "user": user.serialize()}), 200
     except SQLAlchemyError as exc:
-        return jsonify({"error": "Error de base de datos al iniciar sesión", "detail": str(exc)}), 503
+        return jsonify(
+            {"error": "Error de base de datos al iniciar sesión", "detail": str(exc)}
+        ), 503
 
 
 # --- USUARIO -------------------------------------------------------------------
