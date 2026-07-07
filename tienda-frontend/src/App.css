@@ -19,12 +19,7 @@
 
     --color-bg: var(--color-cream);
     --color-bg-mid: var(--color-cream-muted);
-    --color-bg-gradient: linear-gradient(
-        165deg,
-        #f5f0e8 0%,
-        #f0ebe3 40%,
-        #e8e2d8 100%
-    );
+    --color-bg-gradient: linear-gradient(165deg, #f5f0e8 0%, #f0ebe3 40%, #e8e2d8 100%);
 
     --color-brand: var(--color-forest);
     --color-brand-hover: var(--color-forest-mid);
@@ -2087,8 +2082,8 @@ body.cart-drawer-open .navbar-verde {
     background:
         var(--gradient-hero-overlay),
         radial-gradient(circle at 85% 15%, rgba(122, 158, 126, 0.2), transparent 50%),
-        url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&q=80") center / cover
-            no-repeat;
+        url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&q=80") center /
+            cover no-repeat;
 }
 
 .hero-parallax__content {

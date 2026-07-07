@@ -68,8 +68,8 @@ const HeroParallax = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
         >
-          Frutas y verduras de temporada, curadas como en un mercado boutique. Comprá, guardá favoritos
-          y recibí en el día con checkout seguro.
+          Frutas y verduras de temporada, curadas como en un mercado boutique. Comprá, guardá
+          favoritos y recibí en el día con checkout seguro.
         </motion.p>
 
         <motion.div
