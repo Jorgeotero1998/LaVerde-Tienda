@@ -1,6 +1,6 @@
 # 🌿 LaVerde Tienda
 
-**Live Demo:** [https://laverde-frontend.onrender.com/](https://laverde-frontend.onrender.com/)
+**Live App:** [https://laverde-frontend.onrender.com/](https://laverde-frontend.onrender.com/)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![CI](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml/badge.svg)](https://github.com/Jorgeotero1998/LaVerde-Tienda/actions/workflows/ci.yml)

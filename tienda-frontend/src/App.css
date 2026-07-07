@@ -187,7 +187,7 @@ main {
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
     font-size: var(--type-h2);
-    color: var(--color-cream);
+    color: var(--color-forest);
     margin: 0 0 6px;
     line-height: var(--leading-heading);
     letter-spacing: var(--tracking-heading);
@@ -448,7 +448,7 @@ main {
 
 .btn-outline-accent:hover {
     background: rgba(212, 168, 83, 0.14);
-    color: var(--color-cream);
+    color: var(--color-forest);
     transform: translateY(-2px);
 }
 
@@ -1157,8 +1157,8 @@ body.cart-drawer-open .navbar-verde {
 }
 
 .catalog-sidebar__option.is-active {
-    background: rgba(45, 106, 79, 0.18);
-    color: var(--color-cream);
+    background: rgba(201, 169, 98, 0.16);
+    color: var(--color-forest);
     font-weight: var(--weight-semibold);
     box-shadow: inset 3px 0 0 var(--color-accent);
 }
@@ -1192,7 +1192,7 @@ body.cart-drawer-open .navbar-verde {
 .catalog-main__title {
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
-    color: var(--color-cream);
+    color: var(--color-forest);
     font-size: var(--type-h2);
     letter-spacing: var(--tracking-heading);
     margin: 0 0 4px;
@@ -1254,7 +1254,7 @@ body.cart-drawer-open .navbar-verde {
     top: 12px;
     right: 12px;
     background: var(--gradient-gold);
-    color: var(--color-text-inverse);
+    color: var(--color-forest);
     font-weight: var(--weight-bold);
     font-size: var(--type-badge);
     letter-spacing: var(--tracking-wide);
@@ -1277,7 +1277,7 @@ body.cart-drawer-open .navbar-verde {
     font-size: var(--type-h4);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-heading);
-    color: var(--color-cream);
+    color: var(--color-forest);
     margin: var(--space-1) 0;
 }
 
@@ -1633,7 +1633,7 @@ body.cart-drawer-open .navbar-verde {
 .site-footer__tagline {
     font-size: 0.9rem;
     line-height: 1.7;
-    color: var(--color-text-muted);
+    color: rgba(245, 240, 232, 0.78);
     max-width: 280px;
     margin: 0;
 }
@@ -1648,7 +1648,7 @@ body.cart-drawer-open .navbar-verde {
 }
 
 .site-footer__link {
-    color: var(--color-text-muted);
+    color: rgba(245, 240, 232, 0.82);
     text-decoration: none;
     font-size: 0.9rem;
     transition: var(--transition-interactive);
@@ -1661,7 +1661,7 @@ body.cart-drawer-open .navbar-verde {
 
 .site-footer__contact {
     font-size: 0.9rem;
-    color: var(--color-text-muted);
+    color: rgba(245, 240, 232, 0.82);
 }
 .site-footer__contact-icon {
     width: 16px;
@@ -1674,7 +1674,7 @@ body.cart-drawer-open .navbar-verde {
     margin-top: var(--space-5);
     text-align: center;
     font-size: 0.8rem;
-    color: var(--color-text-subtle);
+    color: rgba(245, 240, 232, 0.65);
 }
 
 /* ─── Motion ─── */
