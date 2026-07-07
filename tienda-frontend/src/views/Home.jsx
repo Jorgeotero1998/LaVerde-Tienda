@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Context } from "../layout";
 import ProductCard from "../components/ProductCard";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 const SIDEBAR_CATEGORIES = [
   { id: "Todos", label: "Todos", emoji: "🧺" },
@@ -96,11 +97,17 @@ const Home = () => {
               <header className="catalog-main__header">
                 <h2 className="catalog-main__title">Nuestros productos</h2>
                 <p className="catalog-main__subtitle">
-                  {filtered.length} de {store.products?.length || 0} productos frescos
-                  {search ? ' · Búsqueda: "' + search + '"' : ""}
+                  {store.productsLoading
+                    ? "Sincronizando catálogo..."
+                    : `${filtered.length} de ${store.products?.length || 0} productos frescos${
+                        search ? ' · Búsqueda: "' + search + '"' : ""
+                      }`}
                 </p>
               </header>
 
+              {store.productsLoading && (store.products?.length || 0) === 0 ? (
+                <ProductSkeleton count={8} />
+              ) : (
               <div className="product-grid">
                 {filtered.length === 0 ? (
                   <p className="text-muted-theme col-12">
@@ -116,6 +123,7 @@ const Home = () => {
                   ))
                 )}
               </div>
+              )}
             </div>
           </div>
         </div>

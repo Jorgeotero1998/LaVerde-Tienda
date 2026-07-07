@@ -50,4 +50,4 @@ services:
         destination: /index.html
     envVars:
       - key: REACT_APP_BACKEND_URL
-        sync: false
+        value: https://laverde-backend.onrender.com

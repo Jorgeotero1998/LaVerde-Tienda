@@ -9,26 +9,43 @@
 [![Status](https://img.shields.io/badge/Status-Production-brightgreen)](https://laverde-frontend.onrender.com)
 [![Backend](https://img.shields.io/badge/API-laverde--backend.onrender.com-blue)](https://laverde-backend.onrender.com/api)
 
-Full-stack grocery e-commerce (React + Flask + PostgreSQL) with product catalog, cart, checkout, JWT auth, and an admin panel. Built as the 4Geeks Academy capstone by a 3-person team, deployed to production on Render. · *Plataforma de e-commerce fullstack desarrollada con Flask y React como proyecto final de 4Geeks Academy.*
+Production-ready full-stack grocery e-commerce — React 19, Flask, PostgreSQL — with product catalog, cart drawer, checkout, JWT auth, and admin panel. Built and deployed by Jorge Otero (Full Stack Developer, building since 2023) as a 4Geeks Academy capstone, now maintained as a flagship portfolio project.
 
 <p align="center">
   <a href="https://laverde-frontend.onrender.com/">
     <img src="docs/screenshot.png" width="820" alt="LaVerde Tienda — live storefront screenshot"/>
   </a>
   <br/>
-  <sub><i>Live storefront — product catalog with category filters, cart, and checkout.</i></sub>
+  <sub><i>Live storefront — premium dark UI, category filters, cart drawer, and checkout.</i></sub>
 </p>
 
-> **Note for recruiters:** Frontend and backend run on Render free tier — first load may take ~30–60s while services wake up. Catalog browsing works once loaded; signup/login need the backend awake.
+> **Note for recruiters:** Frontend and backend run on Render free tier — first load may take ~30–60s while services wake up. The catalog renders from cache instantly; signup/login need the backend awake.
 
 | Service | URL |
 |---|---|
 | 🖥️ Frontend | https://laverde-frontend.onrender.com |
 | ⚙️ Backend API | https://laverde-backend.onrender.com/api |
 | 🛡️ Admin panel | https://laverde-backend.onrender.com/admin |
+| ❤️ Health | https://laverde-backend.onrender.com/health |
 
 ---
 
+## Architecture
+
+```
+Browser (React SPA on Render Static)
+    │  REACT_APP_BACKEND_URL → laverde-backend.onrender.com
+    ▼
+Flask REST API (/api/*) + JWT + CORS
+    │
+    ├── PostgreSQL (production) / SQLite (local)
+    ├── Cloudinary (product images, optional)
+    └── Flask-Admin (/admin)
+```
+
+**Resilience:** API client retries GET requests on cold start; product catalog caches in `localStorage`; backend self-heals DB schema + seeds demo catalog at boot on Render.
+
+---
 ## 🚀 Tecnologías
 
 ### Backend

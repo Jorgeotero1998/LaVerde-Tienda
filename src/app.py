@@ -7,6 +7,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from sqlalchemy import text
 from api.models import db
 from api.routes import api
 from api.admin import setup_admin
@@ -65,7 +66,14 @@ _bootstrap_database()
 
 @app.route("/health")
 def health():
-    return jsonify({"status": "ok"}), 200
+    db_ok = True
+    try:
+        db.session.execute(text("SELECT 1"))
+    except Exception:
+        db_ok = False
+    status = "ok" if db_ok else "degraded"
+    code = 200 if db_ok else 503
+    return jsonify({"status": status, "database": "connected" if db_ok else "unavailable"}), code
 
 
 if __name__ == "__main__":

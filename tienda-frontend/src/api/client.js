@@ -3,10 +3,18 @@ export const getApiBase = () =>
 
 export const getToken = () => localStorage.getItem("laverde_token");
 
+const FETCH_TIMEOUT_MS = 25000;
+
 let onUnauthorized = null;
 
 export const setUnauthorizedHandler = (handler) => {
   onUnauthorized = handler;
+};
+
+const fetchWithTimeout = (url, init, timeoutMs = FETCH_TIMEOUT_MS) => {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...init, signal: controller.signal }).finally(() => clearTimeout(timer));
 };
 
 export const apiFetch = async (path, options = {}) => {
@@ -14,11 +22,29 @@ export const apiFetch = async (path, options = {}) => {
   const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(getApiBase() + path, {
+  const requestInit = {
     method: options.method || "GET",
     headers,
     body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-  });
+  };
+
+  const url = getApiBase() + path;
+  const retries = options.retries ?? (options.method && options.method !== "GET" ? 0 : 1);
+  let lastError;
+  let res;
+
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      res = await fetchWithTimeout(url, requestInit);
+      break;
+    } catch (err) {
+      lastError = err;
+      if (attempt >= retries) throw err;
+      await new Promise((r) => setTimeout(r, 1200 * (attempt + 1)));
+    }
+  }
+
+  if (!res) throw lastError || new Error("Network error");
 
   let data = null;
   try {

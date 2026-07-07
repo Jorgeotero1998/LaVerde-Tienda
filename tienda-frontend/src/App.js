@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ToastHost from "./components/ToastHost";
+import SyncBanner from "./components/SyncBanner";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import Home from "./views/Home";
@@ -66,6 +68,8 @@ const AnimatedRoutes = () => {
 const App = () => (
   <BrowserRouter>
     <div className="app-wrapper d-flex flex-column min-vh-100">
+      <ToastHost />
+      <SyncBanner />
       <Navbar />
       <main className="flex-grow-1">
         <AnimatedRoutes />

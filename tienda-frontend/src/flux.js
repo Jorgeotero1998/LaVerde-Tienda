@@ -4,6 +4,16 @@ import { CATALOG_FALLBACK } from "./data/catalogFallback";
 const prodSample = CATALOG_FALLBACK;
 const PRODUCTS_CACHE_KEY = "laverde_products_v2";
 
+const readCachedProducts = () => {
+  try {
+    const raw = localStorage.getItem(PRODUCTS_CACHE_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return Array.isArray(parsed) && parsed.length ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
 const readGuestCart = () => {
   try {
     return JSON.parse(localStorage.getItem("laverde_cart") || "[]");
@@ -18,7 +28,9 @@ const saveGuestCart = (cart) => {
 
 const getState = ({ getStore, getActions, setStore }) => ({
   store: {
-    products: prodSample,
+    products: readCachedProducts() || prodSample,
+    productsLoading: false,
+    productsSource: readCachedProducts() ? "cache" : "fallback",
     product: {},
     cart: readGuestCart(),
     favorites: [],
@@ -154,13 +166,23 @@ const getState = ({ getStore, getActions, setStore }) => ({
     },
 
     getProducts: async () => {
+      const cached = readCachedProducts();
+      setStore({
+        productsLoading: true,
+        ...(cached ? { products: cached, productsSource: "cache" } : {}),
+      });
       try {
-        const data = await apiFetch("/products", { token: null });
+        const data = await apiFetch("/products", { token: null, retries: 2 });
         localStorage.setItem(PRODUCTS_CACHE_KEY, JSON.stringify(data));
         localStorage.removeItem("laverde_products");
-        setStore({ products: data });
+        setStore({ products: data, productsLoading: false, productsSource: "api" });
       } catch {
-        setStore({ products: prodSample });
+        const fallback = cached || prodSample;
+        setStore({
+          products: fallback,
+          productsLoading: false,
+          productsSource: cached ? "cache" : "fallback",
+        });
       }
     },
 
@@ -237,6 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
             body: { product_id: product.id, quantity },
           });
           await getActions().fetchCart();
+          setStore({ message: `${product.name} agregado al carrito`, error: null });
         } catch (err) {
           setStore({
             error: err.data?.error || "No se pudo agregar al carrito.",
@@ -258,7 +281,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
         updatedCart = [...store.cart, { ...product, quantity }];
       }
       saveGuestCart(updatedCart);
-      setStore({ cart: updatedCart });
+      setStore({ cart: updatedCart, message: `${product.name} agregado al carrito`, error: null });
     },
 
     removeFromCart: async (productId) => {
