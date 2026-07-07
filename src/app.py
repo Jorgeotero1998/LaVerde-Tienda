@@ -39,6 +39,30 @@ setup_commands(app)
 app.register_blueprint(api, url_prefix="/api")
 
 
+def _bootstrap_database():
+    """Ensure the schema and demo catalog exist at boot.
+
+    Render's free tier uses an ephemeral filesystem, so a SQLite database can
+    be reset between cold starts. This keeps the public demo functional by
+    (re)creating tables and seeding the product catalog idempotently. It never
+    raises, so a transient DB issue cannot take the whole app down.
+    """
+    if os.getenv("DISABLE_DB_BOOTSTRAP") == "1":
+        return
+    try:
+        from api.catalog_seed import ensure_catalog
+        from api.models import Product
+
+        with app.app_context():
+            db.create_all()
+            ensure_catalog(db, Product)
+    except Exception as exc:  # pragma: no cover - defensive, never crash boot
+        app.logger.warning("Database bootstrap skipped: %s", exc)
+
+
+_bootstrap_database()
+
+
 @app.route("/health")
 def health():
     return jsonify({"status": "ok"}), 200
