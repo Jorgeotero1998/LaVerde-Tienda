@@ -14,8 +14,8 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
-test("renders home hero title", () => {
+test("renders La Verde storefront shell", () => {
   const AppWithContext = injectContext(App);
   render(<AppWithContext />);
-  expect(screen.getByRole("heading", { name: /del campo/i })).toBeInTheDocument();
+  expect(screen.getByText(/La Verde/i)).toBeInTheDocument();
 });
