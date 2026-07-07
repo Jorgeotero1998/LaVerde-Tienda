@@ -23,8 +23,15 @@ const ToastHost = () => {
 
   return (
     <div className="toast-host" role="status" aria-live="polite" aria-atomic="true">
-      <div className={"toast-host__item " + (isError ? "toast-host__item--error" : "toast-host__item--success")}>
-        <i className={"fas " + (isError ? "fa-exclamation-circle" : "fa-check-circle")} aria-hidden="true"></i>
+      <div
+        className={
+          "toast-host__item " + (isError ? "toast-host__item--error" : "toast-host__item--success")
+        }
+      >
+        <i
+          className={"fas " + (isError ? "fa-exclamation-circle" : "fa-check-circle")}
+          aria-hidden="true"
+        ></i>
         <span>{text}</span>
         <button
           type="button"

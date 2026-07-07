@@ -108,21 +108,21 @@ const Home = () => {
               {store.productsLoading && (store.products?.length || 0) === 0 ? (
                 <ProductSkeleton count={8} />
               ) : (
-              <div className="product-grid">
-                {filtered.length === 0 ? (
-                  <p className="text-muted-theme col-12">
-                    No encontramos productos con esos filtros.
-                  </p>
-                ) : (
-                  filtered.map((item, index) => (
-                    <ProductCard
-                      key={item.id}
-                      product={item}
-                      animationDelay={0.05 + index * 0.06}
-                    />
-                  ))
-                )}
-              </div>
+                <div className="product-grid">
+                  {filtered.length === 0 ? (
+                    <p className="text-muted-theme col-12">
+                      No encontramos productos con esos filtros.
+                    </p>
+                  ) : (
+                    filtered.map((item, index) => (
+                      <ProductCard
+                        key={item.id}
+                        product={item}
+                        animationDelay={0.05 + index * 0.06}
+                      />
+                    ))
+                  )}
+                </div>
               )}
             </div>
           </div>
