@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Context } from "../layout";
 import ProductCard from "../components/ProductCard";
 import ProductSkeleton from "../components/ProductSkeleton";
+import HeroParallax from "../components/HeroParallax";
 
 const SIDEBAR_CATEGORIES = [
   { id: "Todos", label: "Todos", emoji: "🧺" },
@@ -56,18 +57,7 @@ const Home = () => {
 
   return (
     <div className="page-home">
-      <section className="hero-banner">
-        <div className="container hero-banner__content">
-          <h1 className="hero-banner__title">Frescura directa a tu hogar</h1>
-          <p className="hero-banner__subtitle">
-            Productos frescos, orgánicos y de temporada. Directo del productor, con entrega en el
-            día para mantener la mejor calidad.
-          </p>
-          <a href="#productos" className="btn btn-accent hero-banner__cta">
-            Explorar productos <i className="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </section>
+      <HeroParallax />
 
       <section id="productos" className="catalog-section">
         <div className="container">

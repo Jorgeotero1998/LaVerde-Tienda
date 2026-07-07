@@ -1,0 +1,156 @@
+/**
+ * La Verde — Botanical Luxury Typography
+ * Display: Cormorant Garamond · Body: DM Sans
+ */
+
+:root {
+    --font-display: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+    --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --type-display: clamp(2.75rem, 5vw + 1rem, 4.25rem);
+    --type-h1: clamp(2rem, 3vw + 0.75rem, 2.75rem);
+    --type-h2: clamp(1.625rem, 2vw + 0.5rem, 2rem);
+    --type-h3: clamp(1.25rem, 1.2vw + 0.5rem, 1.5rem);
+    --type-h4: 1.125rem;
+    --type-body: 1rem;
+    --type-body-sm: 0.875rem;
+    --type-caption: 0.75rem;
+    --type-overline: 0.6875rem;
+    --type-price: clamp(1.25rem, 1vw + 0.75rem, 1.5rem);
+    --type-badge: 0.6875rem;
+
+    --text-h1: var(--type-h1);
+    --text-h2: var(--type-h2);
+    --text-body: var(--type-body);
+    --text-small: var(--type-body-sm);
+
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    --leading-display: 1.05;
+    --leading-heading: 1.15;
+    --leading-tight: 1.2;
+    --leading-body: 1.65;
+    --leading-caption: 1.45;
+
+    --tracking-display: -0.03em;
+    --tracking-heading: -0.02em;
+    --tracking-body: 0;
+    --tracking-overline: 0.14em;
+    --tracking-nav: 0.08em;
+    --tracking-button: 0.04em;
+    --tracking-wide: 0.06em;
+}
+
+body,
+html,
+#root {
+    font-family: var(--font-body);
+    font-size: var(--type-body);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings:
+        "kern" 1,
+        "liga" 1;
+}
+
+h1,
+.h1,
+.type-h1 {
+    font-family: var(--font-display);
+    font-size: var(--type-h1);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+}
+
+h2,
+.h2,
+.type-h2 {
+    font-family: var(--font-display);
+    font-size: var(--type-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+}
+
+h3,
+.h3,
+.type-h3 {
+    font-family: var(--font-display);
+    font-size: var(--type-h3);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+}
+
+h4,
+.h4,
+.type-h4 {
+    font-family: var(--font-body);
+    font-size: var(--type-h4);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+}
+
+.type-display {
+    font-family: var(--font-display);
+    font-size: var(--type-display);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.type-overline {
+    font-family: var(--font-body);
+    font-size: var(--type-overline);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-caption);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+.type-price {
+    font-family: var(--font-body);
+    font-size: var(--type-price);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    letter-spacing: var(--tracking-heading);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent-soft);
+}
+
+.type-badge {
+    font-family: var(--font-body);
+    font-size: var(--type-badge);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+}
+
+.type-nav {
+    font-size: var(--type-body-sm);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-nav);
+    text-transform: uppercase;
+}
+
+.type-button {
+    font-family: var(--font-body);
+    font-size: var(--type-body-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-button);
+}
+
+.type-label {
+    font-size: var(--type-caption);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}

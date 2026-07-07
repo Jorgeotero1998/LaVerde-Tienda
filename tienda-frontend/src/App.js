@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ToastHost from "./components/ToastHost";
 import SyncBanner from "./components/SyncBanner";
+import PageTransition from "./components/motion/PageTransition";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import Home from "./views/Home";
@@ -20,8 +21,8 @@ import { Admin } from "./views/Admin";
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
-    <div key={location.pathname + location.search} className="page-transition">
-      <Routes>
+    <PageTransition>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
@@ -61,7 +62,7 @@ const AnimatedRoutes = () => {
           }
         />
       </Routes>
-    </div>
+    </PageTransition>
   );
 };
 

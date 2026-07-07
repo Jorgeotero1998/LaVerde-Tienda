@@ -1,14 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Context } from "../layout";
 import { isFavoriteProduct } from "../utils/favoriteMatch";
 import { fallbackProductImage, getProductImage } from "../utils/productImages";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 
 const ProductCard = ({ product, animationDelay = 0 }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [justAdded, setJustAdded] = useState(false);
+  const reduced = usePrefersReducedMotion();
   const isFav = isFavoriteProduct(store.favorites, product.id);
+  const cardRef = useRef(null);
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], reduced ? [0, 0] : [9, -9]), {
+    stiffness: 260,
+    damping: 22,
+  });
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], reduced ? [0, 0] : [-9, 9]), {
+    stiffness: 260,
+    damping: 22,
+  });
+
+  const handlePointerMove = (e) => {
+    if (reduced || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const resetTilt = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
   const handleFav = (e) => {
     e.stopPropagation();
@@ -26,9 +53,16 @@ const ProductCard = ({ product, animationDelay = 0 }) => {
   const goDetail = () => navigate("/product/" + product.id);
 
   return (
-    <article
-      className="product-card product-card--reveal"
-      style={{ animationDelay: animationDelay + "s" }}
+    <motion.article
+      ref={cardRef}
+      className="product-card product-card--tilt glass-panel"
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      initial={reduced ? false : { opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: animationDelay, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={reduced ? {} : { y: -6 }}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetTilt}
       onClick={goDetail}
       role="button"
       tabIndex={0}
@@ -64,20 +98,22 @@ const ProductCard = ({ product, animationDelay = 0 }) => {
         )}
       </div>
       <div className="product-card__body">
+        <span className="category-chip product-card__chip">{product.category}</span>
         <h3 className="product-card__title">{product.name}</h3>
         <p className="product-card__desc">{product.description}</p>
-        <button
+        <motion.button
           type="button"
           className={
             "btn btn-accent product-card__cta " + (justAdded ? "product-card__cta--added" : "")
           }
           onClick={handleCart}
           disabled={product.stock === 0}
+          whileTap={reduced ? {} : { scale: 0.97 }}
         >
           <i className="fas fa-shopping-cart"></i> Agregar al carrito
-        </button>
+        </motion.button>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
