@@ -17,5 +17,5 @@ afterEach(() => {
 test("renders La Verde storefront shell", () => {
   const AppWithContext = injectContext(App);
   render(<AppWithContext />);
-  expect(screen.getByText(/La Verde/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/La Verde/i).length).toBeGreaterThan(0);
 });
