@@ -9,5 +9,5 @@ python-dotenv>=1.0
 cloudinary>=1.36
 sqlalchemy>=2.0
 gunicorn>=21.0
-psycopg2-binary>=2.9
+psycopg2-binary>=2.9.12
 requests>=2.31
