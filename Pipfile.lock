@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ffbfb32d0afa5e4bcaba5c2d08c81381a97abd90f22284d2b76647365df5dc50"
+            "sha256": "a0890c255bf158e4f0d32221444a9bf732261a44b5c908eaa485692532741629"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -583,12 +583,12 @@
         },
         "wtforms": {
             "hashes": [
-                "sha256:bf831c042829c8cdbad74c27575098d541d039b1faa74c771545ecac916f2c07",
-                "sha256:f8d76180d7239c94c6322f7990ae1216dae3659b7aa1cee94b6318bdffb474b9"
+                "sha256:72b90d5d921bd3119252069cf0301e9c13915f9e52792652bc91c5dda4b79e56",
+                "sha256:7b00c73f8670f35d4edb0293dcd81b980528bee72fd662b182aaba27ae570b93"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.8'",
-            "version": "==3.1.2"
+            "markers": "python_version >= '3.10'",
+            "version": "==3.2.2"
         }
     },
     "develop": {}
